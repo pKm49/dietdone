@@ -39,18 +39,11 @@ class SubscriptionDateSelectionScreen extends StatelessWidget {
             CalendarWidget(),
             ElevatedButton(
               onPressed: () async {
-                final statusCode =
-                    await CreateSubscriptionAPiService().createSubscription();
-                log(statusCode.toString(), name: "statusCode");
-                if (statusCode == 400) {
-                  toast("Already subscription plan exists",
-                      duration: Duration(seconds: 5));
-                } else if (statusCode == 200) {
-                  Get.to(CheckOutScreen(
-                    subscriptionCardIndex:
-                        subscriptionController.subscriptionCardIdx.value,
-                  ));
-                }
+                Get.to(CheckOutScreen(
+                  subscriptionCardIndex:
+                  subscriptionController.subscriptionCardIdx.value,
+                ));
+
               },
               child: Text(
                 "Continue",

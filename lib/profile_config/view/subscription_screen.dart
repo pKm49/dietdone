@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:diet_diet_done/profile_config/api_service/appointment_booking_service.dart';
 import 'package:diet_diet_done/profile_config/api_service/create_subscription_service.dart';
 import 'package:diet_diet_done/profile_config/controller/subscription_plan_controller.dart';
@@ -43,7 +45,7 @@ class SubscriptionSCreen extends StatelessWidget {
                 onPressed: () async {
                   if (subscriptionController.subscriptionId == 0) {
                     Get.snackbar(
-                        "Please Select", "Chose your Subscription plan");
+                        "Please Select", "Chose your Subscription plan",backgroundColor: kPrimaryColor, colorText: kWhiteColor);
                   } else {
                     Get.to(SubscriptionDateSelectionScreen());
                   }
@@ -85,6 +87,7 @@ class SubscriptionPlanTopSection extends StatelessWidget {
             actions: [
               TextButton(
                   onPressed: () async {
+                    log("appointmentBooking pressed", name:"appointment");
                     await AppointmentBookingApiServices().appointmentBooking();
                     Get.back();
                   },

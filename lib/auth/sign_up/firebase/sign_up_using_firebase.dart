@@ -4,6 +4,7 @@ import 'package:diet_diet_done/auth/login/view/create_new_pass_screen.dart';
 import 'package:diet_diet_done/auth/login/view/otp_verification_screen.dart';
 import 'package:diet_diet_done/auth/sign_up/view/otp_screen.dart';
 import 'package:diet_diet_done/auth/sign_up/view/otp_succuss_screen.dart';
+import 'package:diet_diet_done/core/constraints/const_colors.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 // import 'package:google_sign_in/google_sign_in.dart';
@@ -30,7 +31,8 @@ class SignUpUsingFirebaseController extends GetxController {
         log("Phone verification failed: ${e.message}");
         isLoading.value = false;
         Get.snackbar("Phone number is not valid",
-            "Please make sure that your phone number and country code is correct");
+            "Please make sure that your phone number and country code is correct",
+            backgroundColor: kPrimaryColor, colorText: kWhiteColor);
       };
 
       final PhoneCodeSent codeSentCallBack =
@@ -49,11 +51,11 @@ class SignUpUsingFirebaseController extends GetxController {
     } on FirebaseAuthException catch (e) {
       log("FirebaseAuthException: ${e.message}");
       isLoading.value = false;
-      Get.snackbar("Firebase Auth Exception", e.message ?? "Unknown Error");
+      Get.snackbar("Firebase Auth Exception", e.message ?? "Unknown Error",backgroundColor: kPrimaryColor, colorText: kWhiteColor);
     } catch (e) {
       log("Error: $e");
       isLoading.value = false;
-      Get.snackbar("Error", "An error occurred: $e");
+      Get.snackbar("Error", "An error occurred: $e",backgroundColor: kPrimaryColor, colorText: kWhiteColor);
     }
   }
 
@@ -79,11 +81,11 @@ class SignUpUsingFirebaseController extends GetxController {
     } on FirebaseAuthException catch (e) {
       isLoading.value = false;
       log("FirebaseAuthException: ${e.message}");
-      Get.snackbar("Invalid OTP", "Recheck your OTP and try again");
+      Get.snackbar("Invalid OTP", "Recheck your OTP and try again",backgroundColor: kPrimaryColor, colorText: kWhiteColor);
     } catch (e) {
       isLoading.value = false;
       log("Error: $e");
-      Get.snackbar("Error", "An error occurred: $e");
+      Get.snackbar("Error", "An error occurred: $e",backgroundColor: kPrimaryColor, colorText: kWhiteColor);
     } finally {
       isLoading.value = false;
     }
@@ -139,7 +141,7 @@ class SignUpUsingFirebaseController extends GetxController {
         log("Phone verification failed: ${e.message}");
         isLoading.value = false;
         Get.snackbar("Phone number is not valid",
-            "Please make sure that your phone number and country code is correct");
+            "Please make sure that your phone number and country code is correct",backgroundColor: kPrimaryColor, colorText: kWhiteColor);
       };
 
       final PhoneCodeSent codeSentCallBack =
@@ -160,11 +162,11 @@ class SignUpUsingFirebaseController extends GetxController {
     } on FirebaseAuthException catch (e) {
       log("FirebaseAuthException: ${e.message}");
       isLoading.value = false;
-      Get.snackbar("Firebase Auth Exception", e.message ?? "Unknown Error");
+      Get.snackbar("Firebase Auth Exception", e.message ?? "Unknown Error",backgroundColor: kPrimaryColor, colorText: kWhiteColor);
     } catch (e) {
       log("Error: $e");
       isLoading.value = false;
-      Get.snackbar("Error", "An error occurred: $e");
+      Get.snackbar("Error", "An error occurred: $e",backgroundColor: kPrimaryColor, colorText: kWhiteColor);
     }
   }
 
@@ -190,11 +192,11 @@ class SignUpUsingFirebaseController extends GetxController {
     } on FirebaseAuthException catch (e) {
       isLoading.value = false;
       log("FirebaseAuthException: ${e.message}");
-      Get.snackbar("Invalid OTP", "Recheck your OTP and try again");
+      Get.snackbar("Invalid OTP", "Recheck your OTP and try again",backgroundColor: kPrimaryColor, colorText: kWhiteColor);
     } catch (e) {
       isLoading.value = false;
       log("Error: $e");
-      Get.snackbar("Error", "An error occurred: $e");
+      Get.snackbar("Error", "An error occurred: $e",backgroundColor: kPrimaryColor, colorText: kWhiteColor);
     } finally {
       isLoading.value = false;
     }

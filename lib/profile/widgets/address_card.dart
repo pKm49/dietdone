@@ -29,15 +29,22 @@ class AddressCard extends StatelessWidget {
                 child: SvgPicture.asset("assets/icon/Add Address.svg"),
               ),
               kWidth(10),
-              Text(
-                addressList!.comments,
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+              Expanded(
+                child: FittedBox(
+                  alignment: Alignment.centerLeft,
+                  fit: BoxFit.scaleDown,
+                  child: Text(
+                    addressList!.comments,
+                    textAlign: TextAlign.start,
+                    style: TextStyle(
+                        fontSize: 18, fontWeight: FontWeight.w500),
+                  ),
+                ),
               ),
-              const Spacer(),
               Padding(
                 padding: const EdgeInsets.only(right: 5),
                 child: SizedBox(
-                  width: 15,
+                  width: 40,
                   child: Column(
                     children: [
                       IconButton(

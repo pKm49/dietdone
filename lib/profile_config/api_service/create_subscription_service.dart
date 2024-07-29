@@ -40,7 +40,7 @@ class CreateSubscriptionAPiService {
       "plan_id": planController.planId,
       "plan_choice_id": subscriptionController.subscriptionId.value,
       "start_date": subscriptionController.selectedDate,
-      "promo_code": ""
+      "promo_code": subscriptionController.couponController.text
     });
 
     log(mobile, name: "mobile number");
@@ -73,30 +73,38 @@ class CreateSubscriptionAPiService {
       if (response.statusCode == 200) {
         final responseBody = json.decode(response.body);
         final errorMessage = responseBody["error"];
-        subscriptionController.transactionUrl.value =
-            responseBody["payload"][0]["transaction_url"];
-        subscriptionController.redirectUrl.value =
-            responseBody["payload"][0]["redirect_url"];
-        subscriptionController.paymentUrl.value =
-            responseBody["payload"][0]["payment_reference"];
+        if (responseBody["payload"] != null) {
+        if (responseBody["payload"].length > 0) {
+          subscriptionController.transactionUrl.value =
+          responseBody["payload"][0]["transaction_url"];
+          subscriptionController.redirectUrl.value =
+          responseBody["payload"][0]["redirect_url"];
+          subscriptionController.paymentUrl.value =
+          responseBody["payload"][0]["payment_reference"];
 
-        subscriptionController
-            .updatePaymentData(responseBody["payload"][0]["transaction_url"]);
-        log(subscriptionController.transactionUrl.value,
-            name: "transaction url name");
-        if (errorMessage != null) {
+          subscriptionController
+              .updatePaymentData(responseBody["payload"][0]["transaction_url"]);
+          log(subscriptionController.transactionUrl.value,
+              name: "transaction url name");
+          return statusCode;
+        }
+      }else{
+
           toast(
             errorMessage,
           );
-          return statusCode;
+          return;
         }
+
       } else {
+
         throw Exception(
             "Failed to create subscription: ${response.statusCode}");
       }
-    } catch (e) {
+    } catch (e,str) {
       toast("Error: $e");
       log("Error: $e");
+      log("Error: $str");
     } finally {
       Get.back();
     }

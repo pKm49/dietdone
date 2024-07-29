@@ -43,7 +43,7 @@ class GetAddressModel {
         jedha: json["jedha"],
         houseNumber: json["house_number"],
         floorNumber: json["floor_number"],
-        comments: json["comments"],
+        comments: json["comments"] == null||json["comments"] == ""?"*" : json["comments"],
       );
 
   Map<String, dynamic> toJson() => {

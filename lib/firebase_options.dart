@@ -17,7 +17,10 @@ import 'package:flutter/foundation.dart'
 class DefaultFirebaseOptions {
   static FirebaseOptions get currentPlatform {
     if (kIsWeb) {
-      return web;
+      throw UnsupportedError(
+        'DefaultFirebaseOptions have not been configured for web - '
+        'you can reconfigure this by running the FlutterFire CLI again.',
+      );
     }
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
@@ -25,9 +28,15 @@ class DefaultFirebaseOptions {
       case TargetPlatform.iOS:
         return ios;
       case TargetPlatform.macOS:
-        return macos;
+        throw UnsupportedError(
+          'DefaultFirebaseOptions have not been configured for macos - '
+          'you can reconfigure this by running the FlutterFire CLI again.',
+        );
       case TargetPlatform.windows:
-        return windows;
+        throw UnsupportedError(
+          'DefaultFirebaseOptions have not been configured for windows - '
+          'you can reconfigure this by running the FlutterFire CLI again.',
+        );
       case TargetPlatform.linux:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for linux - '
@@ -40,51 +49,21 @@ class DefaultFirebaseOptions {
     }
   }
 
-  static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyD-YO-7xJZXiDG_DOGXuhc1Byts2SXcsKY',
-    appId: '1:999771098348:web:3a9d3005783a19ada969c9',
-    messagingSenderId: '999771098348',
-    projectId: 'flutter-auth-90bb2',
-    authDomain: 'flutter-auth-90bb2.firebaseapp.com',
-    storageBucket: 'flutter-auth-90bb2.appspot.com',
-  );
-
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyBNatTvkVHhDJ8YxkLbxDV3GOzJQTUnSjc',
-    appId: '1:999771098348:android:47d09da2f46a4a56a969c9',
-    messagingSenderId: '999771098348',
-    projectId: 'flutter-auth-90bb2',
-    storageBucket: 'flutter-auth-90bb2.appspot.com',
+    apiKey: 'AIzaSyCeb81z6j0PohedV2xeUqYq8fds_Eh2UvM',
+    appId: '1:901517529183:android:257e3609730dc757464bea',
+    messagingSenderId: '901517529183',
+    projectId: 'diet-done-app',
+    storageBucket: 'diet-done-app.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyBc_6M1ii3Mo4e7lDi2SttN0tYHqfiCmJs',
-    appId: '1:999771098348:ios:556fd65f316b0cc3a969c9',
-    messagingSenderId: '999771098348',
-    projectId: 'flutter-auth-90bb2',
-    storageBucket: 'flutter-auth-90bb2.appspot.com',
-    androidClientId: '999771098348-00g874s0nrqc1m0q8s8j99ds6o0s3a92.apps.googleusercontent.com',
-    iosClientId: '999771098348-nrg032hafvmi7100ikr1g3mv9r3n58ub.apps.googleusercontent.com',
-    iosBundleId: 'com.example.dietdiet',
+    apiKey: 'AIzaSyD2-6HOtji1asIFUivvOhV7IAGDmmapQkQ',
+    appId: '1:901517529183:ios:d2b9c12b5f0ae7d7464bea',
+    messagingSenderId: '901517529183',
+    projectId: 'diet-done-app',
+    storageBucket: 'diet-done-app.appspot.com',
+    iosBundleId: 'com.armino.doneapp',
   );
 
-  static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyBc_6M1ii3Mo4e7lDi2SttN0tYHqfiCmJs',
-    appId: '1:999771098348:ios:ca03988a3d79b65da969c9',
-    messagingSenderId: '999771098348',
-    projectId: 'flutter-auth-90bb2',
-    storageBucket: 'flutter-auth-90bb2.appspot.com',
-    androidClientId: '999771098348-00g874s0nrqc1m0q8s8j99ds6o0s3a92.apps.googleusercontent.com',
-    iosClientId: '999771098348-0k3f953pinj8poccb9ef0qib48d8e29s.apps.googleusercontent.com',
-    iosBundleId: 'com.dietdietdone.dietdietdone.dietDone',
-  );
-
-  static const FirebaseOptions windows = FirebaseOptions(
-    apiKey: 'AIzaSyD-YO-7xJZXiDG_DOGXuhc1Byts2SXcsKY',
-    appId: '1:999771098348:web:548a6740c38de170a969c9',
-    messagingSenderId: '999771098348',
-    projectId: 'flutter-auth-90bb2',
-    authDomain: 'flutter-auth-90bb2.firebaseapp.com',
-    storageBucket: 'flutter-auth-90bb2.appspot.com',
-  );
 }

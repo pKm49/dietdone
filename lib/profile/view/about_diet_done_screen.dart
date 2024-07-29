@@ -1,4 +1,5 @@
 import 'package:diet_diet_done/core/constraints/const_colors.dart';
+import 'package:diet_diet_done/core/constraints/constraints.dart';
 import 'package:diet_diet_done/profile/widgets/custom_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -15,38 +16,45 @@ class AboutDietDoneScreen extends StatelessWidget {
         child: SafeArea(
           child: Column(
             children: [
+              kHeight(15),
+
               CustomAppBar(title: "Diet Done"),
-              CircleAvatar(
-                radius: 70,
-                backgroundColor: Colors.grey[100],
-                child:
-                    SvgPicture.asset("assets/about_page_icons/About Diet.svg"),
-              ),
+
               Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                child: ListView(
                   children: [
+                    CircleAvatar(
+                      radius: 70,
+                      backgroundColor: Colors.grey[100],
+                      child:
+                      SvgPicture.asset("assets/about_page_icons/About Diet.svg"),
+                    ),
                     Text(
                       "Diet Step: Your\npersonalized journey",
                       style:
                           TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                     ),
+                    kHeight(15),
+
                     const Text(
                         "At DietStep, we're committed to helping you achieve your health and wellness goals in a way that's tailored to your lifestyle. Our mobile application is designed to make your journey towards a healthier you both effortless and enjoyable"),
-                    ElevatedButton(
-                      onPressed: () {},
-                      style: ElevatedButton.styleFrom(
-                          maximumSize: const Size(150, 45),
-                          backgroundColor: kBlackColor),
-                      child:
-                          Text("Know more", style: theme.textTheme.labelLarge),
-                    ),
+                    // ElevatedButton(
+                    //   onPressed: () {},
+                    //   style: ElevatedButton.styleFrom(
+                    //       maximumSize: const Size(150, 45),
+                    //       backgroundColor: kBlackColor),
+                    //   child:
+                    //       Text("Know more", style: theme.textTheme.labelLarge),
+                    // ),
+                    kHeight(30),
+
                     Text(
                       "What We Offers",
                       style:
                           TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                     ),
+                    kHeight(15),
+
                     const WhatWeOfferCardGroup(
                       imageUrl1: 'assets/about_page_icons/Tailored Website.svg',
                       title1: 'Tailored\nWebsite',
@@ -57,23 +65,27 @@ class AboutDietDoneScreen extends StatelessWidget {
                       imageUrl4: 'assets/about_page_icons/Guidance.svg',
                       title4: 'Expert\nGuidance',
                     ),
+                    kHeight(30),
+
                     Text(
                       "Our Mission",
                       style:
                           TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                     ),
+                    kHeight(15),
+
                     Text(
                         "We believe that achieving a balanced and healthy lifestyle shouldn’t be a one-size-fits-all approach. Our mission is to empower individuals like you to make informed choices about their health through personalized guidance, support, and a community-driven approach"),
-                    ElevatedButton(
-                      onPressed: () {},
-                      style: ElevatedButton.styleFrom(
-                          maximumSize: const Size(150, 45),
-                          backgroundColor: kBlackColor),
-                      child: Text(
-                        "Know more",
-                        style: theme.textTheme.labelLarge,
-                      ),
-                    ),
+                    // ElevatedButton(
+                    //   onPressed: () {},
+                    //   style: ElevatedButton.styleFrom(
+                    //       maximumSize: const Size(150, 45),
+                    //       backgroundColor: kBlackColor),
+                    //   child: Text(
+                    //     "Know more",
+                    //     style: theme.textTheme.labelLarge,
+                    //   ),
+                    // ),
                   ],
                 ),
               ),

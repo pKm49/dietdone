@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:diet_diet_done/core/api/const_api_endpoints.dart';
+import 'package:diet_diet_done/core/constraints/const_colors.dart';
 import 'package:diet_diet_done/profile/controller/Profile_controller.dart';
 import 'package:diet_diet_done/profile/model/allergies_model.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
@@ -27,7 +28,7 @@ class UpdateAllergiesAPiServices {
       log(response.body, name: "allergies");
       // profileController.selectedOptions.clear();
       // profileController.selectedOptionIds.clear();
-      Get.snackbar("Updated...", "Successfully updated your allergies");
+      Get.snackbar("Updated...", "Successfully updated your allergies",backgroundColor: kPrimaryColor, colorText: kWhiteColor);
     }
   }
 

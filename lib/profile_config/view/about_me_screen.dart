@@ -164,7 +164,7 @@ class AboutMeScreen extends StatelessWidget {
                   if (signUpController.heightController.text.isEmpty ||
                       signUpController.weightController.text.isEmpty) {
                     Get.snackbar("Please fill the column",
-                        "Enter your Height and Weight in the column");
+                        "Enter your Height and Weight in the column",backgroundColor: kPrimaryColor, colorText: kWhiteColor);
                   } else {
                     Get.to(const UserOriginScreen());
                   }

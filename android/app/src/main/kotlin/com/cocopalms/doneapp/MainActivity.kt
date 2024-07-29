@@ -1,4 +1,4 @@
-package com.dietdiet_done.dietdiet_done.diet_done
+package com.cocopalms.doneapp
 
 import io.flutter.embedding.android.FlutterActivity
 

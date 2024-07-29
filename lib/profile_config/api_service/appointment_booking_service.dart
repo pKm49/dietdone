@@ -23,6 +23,10 @@ class AppointmentBookingApiServices {
       final response = await http.post(Uri.parse(url),
           body: json.encode({"mobile": "$mobile"}),
           headers: {"Authorization": "Bearer $accessToken"});
+      log("${Uri.parse(url)}", name: "request url");
+      log("${response.statusCode}", name: "response statusCode");
+      log("${response.body}", name: "response body");
+
       if (response.statusCode == 200) {
         toast(
             "    Appointment booked successfully...\nOur Customer service will reach you out",

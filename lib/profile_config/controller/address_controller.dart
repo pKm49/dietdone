@@ -76,6 +76,8 @@ class AddressController extends GetxController {
   Future<void> fetchAddress() async {
     try {
       await GetAddressApiServices().fetchAddressData().then((address) {
+        print("address");
+        print(address.toString());
         allAddress.value = address;
         return addresses.value = address;
       });

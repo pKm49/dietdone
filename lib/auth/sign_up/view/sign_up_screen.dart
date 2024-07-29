@@ -145,8 +145,8 @@ class SignUpScreen extends StatelessWidget {
                         onTap: () async {
                           if (!singUpLocalController.termsAndCondition.value) {
                             Get.snackbar("Terms and conditions",
-                                "Please agree to the terms and conditions",
-                                backgroundColor: kWhiteColor);
+                                "Please agree to the terms and conditions"
+                                ,backgroundColor: kPrimaryColor, colorText: kWhiteColor);
                           } else if (singUpController.arabicKey.currentState!
                               .validate()) {
                             Get.to(const SignUpScreenArabic(),

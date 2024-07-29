@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:developer';
 import 'package:diet_diet_done/core/api/const_api_endpoints.dart';
+import 'package:diet_diet_done/core/constraints/const_colors.dart';
 import 'package:diet_diet_done/profile_config/controller/subscription_plan_controller.dart';
 import 'package:diet_diet_done/profile_config/model/coupon_model.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
@@ -29,13 +30,13 @@ class CouponVerificationApiServices {
       final statusOk = jsonDecode(response.body)["statusOk"];
       final error = jsonDecode(response.body)["error"];
       if (statusOk == true) {
-        Get.snackbar("Successful", "Coupon added successfully..");
+        Get.snackbar("Successful", "Coupon added successfully..",backgroundColor: kPrimaryColor, colorText: kWhiteColor);
       }
       if (message == "Invalid coupon code.") {
-        Get.snackbar("Invalid Coupon", "please re-check and try again");
+        Get.snackbar("Invalid Coupon", "please re-check and try again",backgroundColor: kPrimaryColor, colorText: kWhiteColor);
       }
       if (error == "Coupon code not passed.") {
-        Get.snackbar("Enter Coupon Code", "Coupon code not passed.");
+        Get.snackbar("Enter Coupon Code", "Coupon code not passed.",backgroundColor: kPrimaryColor, colorText: kWhiteColor);
       }
       final List<dynamic> responseData = json.decode(response.body)["payload"];
       final List<CouponModel> coupons =

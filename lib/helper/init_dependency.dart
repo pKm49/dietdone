@@ -20,9 +20,10 @@ import 'package:get/get.dart';
 class InitDependency extends Bindings {
   @override
   void dependencies() {
-    Get.put(AreaAndBlockController());
     Get.put(LocalController());
     Get.put(SignUpController());
+    Get.put(AreaAndBlockController());
+
     Get.put(AddressController());
     Get.put(ProfileConfigController());
     Get.put(SignUpUsingFirebaseController());

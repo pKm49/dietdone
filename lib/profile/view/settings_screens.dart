@@ -1,3 +1,4 @@
+import 'package:app_settings/app_settings.dart';
 import 'package:diet_diet_done/auth/login/view/forgot_pass_screen.dart';
 import 'package:diet_diet_done/auth/sign_up/view/terms_condition_screen.dart';
 import 'package:diet_diet_done/core/constraints/const_colors.dart';
@@ -21,6 +22,7 @@ class SettingsScreen extends StatelessWidget {
         child: SafeArea(
           child: Column(
             children: [
+              kHeight(15),
               CustomAppBar(title: "Settings"),
               kHeight(15),
               CircleAvatar(
@@ -35,13 +37,10 @@ class SettingsScreen extends StatelessWidget {
                 title: 'Notification',
                 onTap: () async {
                   try {
-                    await platform.invokeMethod('openNotificationSettings');
-                  } on PlatformException catch (e) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                          content:
-                              Text('Unable to open notification settings: $e')),
-                    );
+                    AppSettings.openAppSettings(type: AppSettingsType.notification);
+                    // await platform.invokeMethod('openNotificationSettings');
+                  } on Exception catch (e) {
+
                   }
                 },
               ),

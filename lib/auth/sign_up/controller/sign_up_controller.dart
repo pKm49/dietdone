@@ -20,7 +20,6 @@ class SignUpController extends GetxController {
   String source = "social";
   RxBool showOtherTextField = false.obs;
   String gender = "male";
-  final areaBlockController = Get.find<AreaAndBlockController>();
   final formKey = GlobalKey<FormState>();
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController forgetPasswordOtpController =

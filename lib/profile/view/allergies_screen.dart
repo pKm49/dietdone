@@ -136,7 +136,6 @@ class AllergiesScreen extends StatelessWidget {
                   final List<String> selectedNames = controller.selectedOptions
                       .map((element) => element.name)
                       .toList();
-
                   return Text("Selected Options: ${selectedNames.join(", ")}");
                 }),
               ),
@@ -147,8 +146,7 @@ class AllergiesScreen extends StatelessWidget {
                   if (selectedOptionIds.isEmpty) {
                     Get.snackbar(
                       "Select Your Ingredient",
-                      "Please select at least one ingredient before updating.",
-                      colorText: kBlackColor,
+                      "Please select at least one ingredient before updating.",backgroundColor: kPrimaryColor, colorText: kWhiteColor
                     );
                   } else {
                     toast("Loading.....");

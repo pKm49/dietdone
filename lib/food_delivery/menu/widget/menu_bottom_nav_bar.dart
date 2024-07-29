@@ -51,7 +51,7 @@ class MenuBottomNavBar extends StatelessWidget {
             ),
             ElevatedButton(
               onPressed: () {
-                Get.snackbar("successfully", "Item added to cart");
+                Get.snackbar("successfully", "Item added to cart",backgroundColor: kPrimaryColor, colorText: kWhiteColor);
               },
               style: ElevatedButton.styleFrom(
                   maximumSize: const Size(150, 50),

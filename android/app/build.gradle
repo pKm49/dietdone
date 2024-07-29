@@ -29,7 +29,7 @@ apply plugin: 'com.google.gms.google-services'
 
 
 android {
-    namespace "com.dietdiet_done.dietdiet_done.diet_diet_done"
+    namespace "com.cocopalms.doneapp"
     compileSdkVersion 34
     ndkVersion flutter.ndkVersion
 
@@ -48,7 +48,7 @@ android {
 
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
-        applicationId "com.dietdiet_done.dietdiet_done.diet_diet_done"
+        applicationId "com.cocopalms.doneapp"
         // You can update the following values to match your application needs.
         // For more information, see: https://docs.flutter.dev/deployment/android#reviewing-the-gradle-build-configuration.
         minSdkVersion 21

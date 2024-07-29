@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:diet_diet_done/core/constraints/const_colors.dart';
 import 'package:diet_diet_done/core/constraints/constraints.dart';
 import 'package:diet_diet_done/diet_delivery/calendar/api/get_calendar_dates_service.dart';
@@ -12,10 +14,13 @@ import 'package:diet_diet_done/diet_delivery/home/widgets/floating_action_button
 import 'package:diet_diet_done/diet_delivery/home/widgets/profile_card_image.dart';
 import 'package:diet_diet_done/diet_delivery/home/widgets/profile_diet_card.dart';
 import 'package:diet_diet_done/food_delivery/menu/api/show_menu_api_service.dart';
+import 'package:diet_diet_done/profile_config/api_service/appointment_booking_service.dart';
 import 'package:diet_diet_done/profile_config/controller/subscription_plan_controller.dart';
 import 'package:diet_diet_done/profile_config/view/plan_selection_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:permission_handler/permission_handler.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shimmer/shimmer.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -33,6 +38,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Future<void> _initializeData() async {
+    checkNotificationsPermission();
     final PassDeviceTokenToBackEnd passDeviceTokenToBackEnd =
         PassDeviceTokenToBackEnd();
     final getProfileController = Get.find<GetProfileController>();
@@ -134,6 +140,8 @@ class _HomeScreenState extends State<HomeScreen> {
                             actions: [
                               TextButton(
                                   onPressed: () async {
+                                    log("appointmentBooking pressed", name:"appointment");
+                                    await AppointmentBookingApiServices().appointmentBooking();
                                     Get.back();
                                   },
                                   child: const Text(
@@ -164,6 +172,67 @@ class _HomeScreenState extends State<HomeScreen> {
       ],
     ));
   }
+
+  Future<void> checkNotificationsPermission() async {
+    await Permission.notification.isDenied.then((value) async {
+      if (value) {
+        if(!await getPermissionRequestSharedPreference()){
+          showPermissionDialogue();
+        }
+      }
+    });
+  }
+
+  void showPermissionDialogue( ) async {
+    setPermissionRequestSharedPreference();
+
+    final dialogTitleWidget = Text('notification_access_permission_title'.tr);
+    final dialogTextWidget = Text( 'notification_access_permission_info'.tr );
+
+    final updateButtonTextWidget = Text('continue'.tr,style: TextStyle(color: kWhiteColor),);
+
+    updateAction() {
+      Navigator.pop(context);
+      Permission.notification.request();
+    }
+
+    List<Widget> actions = [
+
+
+      ElevatedButton(
+          onPressed:updateAction,
+          child:  updateButtonTextWidget)
+    ];
+
+    await showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return WillPopScope(
+            child:AlertDialog(
+              title: dialogTitleWidget,
+              content: dialogTextWidget,
+              actions: actions,
+            ),
+            onWillPop: () => Future.value(false));
+      },
+    );
+  }
+
+  Future<bool> getPermissionRequestSharedPreference() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    final bool? isNotificationPermissionAsked = prefs.getBool('isNotificationPermissionAsked');
+    print("getPermissionRequestSharedPreference");
+    print(isNotificationPermissionAsked);
+    return isNotificationPermissionAsked !=null?isNotificationPermissionAsked:false;
+  }
+
+  Future<void> setPermissionRequestSharedPreference() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setBool('isNotificationPermissionAsked',true);
+  }
+
+
 }
 
 class ProfileDietCardShimmer extends StatelessWidget {

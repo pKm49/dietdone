@@ -24,6 +24,8 @@ class ReferralPointScreen extends StatelessWidget {
         child: SafeArea(
           child: Column(
             children: [
+              kHeight(15),
+
               CustomAppBar(
                 title: "Your Referral Points",
               ),

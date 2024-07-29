@@ -94,7 +94,12 @@ class DietCustomMenuCard extends StatelessWidget {
                                         },
                                         child: Container(
                                           decoration: BoxDecoration(
-                                              color: kPrimaryColor,
+                                              color:controller.selectedMealsByCategory[
+                                              listIdx]
+                                                  ?.contains(
+                                                  dietMealsData.id) ??
+                                                  false
+                                                  ?kBlackColor: kPrimaryColor,
                                               borderRadius: BorderRadius.all(
                                                   Radius.circular(5))),
                                           padding: EdgeInsets.symmetric(

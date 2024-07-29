@@ -73,7 +73,7 @@ class SubscriptionCard extends StatelessWidget {
           child: Card(
             color: kBlackColor,
             child: SizedBox(
-              height: 180,
+              height: 190,
               child: Padding(
                 padding: const EdgeInsets.all(15.0),
                 child: Row(

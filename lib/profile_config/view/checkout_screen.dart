@@ -10,6 +10,7 @@ import 'package:diet_diet_done/profile_config/view/payment_gateway_webview.dart'
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:overlay_support/overlay_support.dart';
 
 class CheckOutScreen extends StatelessWidget {
   const CheckOutScreen({super.key, required this.subscriptionCardIndex});
@@ -242,18 +243,27 @@ class CheckOutScreen extends StatelessWidget {
             ),
 
             ElevatedButton(
-                onPressed: () {
-                  if (subscriptionPlanController
-                          .subscriptionPlan[subscriptionCardIndex].price ==
-                      0.0) {
-                    Get.snackbar("Success", "Payment capture success");
-                    Get.off(const OTPSuccessScreen(screenName: true))!
-                        .then((value) => null);
-                  } else {
-                    log(subscriptionPlanController.transactionUrl.toString(),
-                        name: "transaction Url name");
-                    Get.to(const PaymentGatewayWebview());
+                onPressed: () async {
+                  final statusCode =
+                      await CreateSubscriptionAPiService().createSubscription( );
+                  log(statusCode.toString(), name: "statusCode");
+                  if (statusCode == 400) {
+                    toast("Already subscription plan exists",
+                        duration: Duration(seconds: 5));
+                  } else if (statusCode == 200) {
+                    if (subscriptionPlanController
+                        .subscriptionPlan[subscriptionCardIndex].price ==
+                        0.0) {
+                      Get.snackbar("Success", "Payment capture success",backgroundColor: kPrimaryColor, colorText: kWhiteColor);
+                      Get.off(const OTPSuccessScreen(screenName: true))!
+                          .then((value) => null);
+                    } else {
+                      log(subscriptionPlanController.transactionUrl.toString(),
+                          name: "transaction Url name");
+                      Get.to(const PaymentGatewayWebview());
+                    }
                   }
+
                 },
                 child: Text(
                   "Checkout",

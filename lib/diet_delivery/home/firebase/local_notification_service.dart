@@ -93,7 +93,7 @@ class NotificationService {
     final AndroidNotification? android = message.notification?.android;
     final AppleNotification? apple = message.notification?.apple;
     String logoPath =
-        "https://lh3.googleusercontent.com/4h2XkERxolE4FL97S1AwPucH48MwqbrLc63B5PvunkPoVHd_X1bKPfILsmzy-ZHTEuQ";
+        "https://lh3.googleusercontent.com/nYppg89_m0hJedr2d5VAVO_cePAdYN_PxXv8si_5KM1j1ki7uByaTeRP-OyYt_Gy3Ds";
     String imageUrl = logoPath;
 
     if (android != null) {

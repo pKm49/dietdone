@@ -51,7 +51,7 @@ class CalendarFreezeScreen extends StatelessWidget {
                     onPressed: () async {
                       if (calendarController.freezedSelectedDate.isEmpty) {
                         Get.snackbar("Date didn't selected",
-                            "Please Select date which you have to freeze");
+                            "Please Select date which you have to freeze",backgroundColor: kPrimaryColor, colorText: kWhiteColor);
                       } else {
                         await calendarController.freezeCalendar();
                       }
