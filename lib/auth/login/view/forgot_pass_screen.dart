@@ -1,4 +1,5 @@
 import 'package:country_picker/country_picker.dart';
+import 'package:diet_diet_done/auth/login/api/reset_password_service.dart';
 import 'package:diet_diet_done/auth/login/view/login_screen.dart';
 import 'package:diet_diet_done/auth/login/view/otp_verification_screen.dart';
 import 'package:diet_diet_done/auth/sign_up/controller/local_controller.dart';
@@ -88,8 +89,9 @@ class ForgotPassScreen extends StatelessWidget {
             ),
             kHeight(20),
             ElevatedButton(
-                onPressed: () {
-                  signUpController.forgetPassword();
+                onPressed: () async {
+                  FocusManager.instance.primaryFocus?.unfocus();
+                  await ResetPasswordApiService().sendOtp();
                 },
                 style: ElevatedButton.styleFrom(backgroundColor: kBlackColor),
                 child: Text(

@@ -24,23 +24,23 @@
 	<string>$(FLUTTER_BUILD_NUMBER)</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
-		<key>NSCameraUsageDescription</key>
-    	<string>Please allow DietDone to use your camera to add your profile photo. We need this to snap a fresh profile pic on the spot. We only use access for profile customization. See our privacy policy for more information.</string>
-    	<key>NSLocationWhenInUseUsageDescription</key>
-    	<string>Please allow DietDone to access your location to accurately fetch your address. We need this to reach you for delivering the food. We only use access for navigation. See our privacy policy for more information.</string>
-    	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-    	<string>Please allow DietDone to access your location to accurately fetch your address. We need this to reach you for delivering the food. We only use access for navigation. See our privacy policy for more information.</string>
-    	<key>NSPhotoLibraryUsageDescription</key>
-    	<string>Please allow DietDone to access your photos to upload your profile photo. We need this to choose an existing image to represent you. We only use access for profile customization.See our privacy policy for more information.</string>
-    	<key>PermissionGroupNotification</key>
-    	<string>Please allow DietDone to send you notifications to share important updates and exciting news!</string>
-    	<key>UIApplicationSupportsIndirectInputEvents</key>
-    	<true/>
-    	<key>UIBackgroundModes</key>
-    	<array>
-    		<string>fetch</string>
-    		<string>remote-notification</string>
-    	</array>
+    <key>NSCameraUsageDescription</key>
+    <string>Please allow DietDone to use your camera to add your profile photo. We need this to snap a fresh profile pic on the spot. We only use access for profile customization. See our privacy policy for more information.</string>
+    <key>NSLocationWhenInUseUsageDescription</key>
+    <string>Please allow DietDone to access your location to accurately fetch your address. We need this to reach you for delivering the food. We only use access for navigation. See our privacy policy for more information.</string>
+    <key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+    <string>Please allow DietDone to access your location to accurately fetch your address. We need this to reach you for delivering the food. We only use access for navigation. See our privacy policy for more information.</string>
+    <key>NSPhotoLibraryUsageDescription</key>
+    <string>Please allow DietDone to access your photos to upload your profile photo. We need this to choose an existing image to represent you. We only use access for profile customization.See our privacy policy for more information.</string>
+    <key>PermissionGroupNotification</key>
+    <string>Please allow DietDone to send you notifications to share important updates and exciting news!</string>
+    <key>UIApplicationSupportsIndirectInputEvents</key>
+    <true/>
+    <key>UIBackgroundModes</key>
+    <array>
+        <string>fetch</string>
+        <string>remote-notification</string>
+    </array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>

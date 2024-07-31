@@ -39,7 +39,11 @@ class LoginScreen extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  kHeight(50),
+                  kHeight(25),
+                  SizedBox(
+                      height: MediaQuery.of(context).size.height * 0.06,
+                      child: const Image(
+                          image: AssetImage("assets/logo/Group 13233.png"))),
                   const Text(
                     "Welcome back!",
                     style: TextStyle(
@@ -135,14 +139,14 @@ class LoginScreen extends StatelessWidget {
                         style: ElevatedButton.styleFrom(
                             backgroundColor: kWhiteColor),
                       ),
-                      kHeight(10),
-                      const LoginWithText(),
-                      kHeight(15),
-                      SocialMediaLogin(
-                        size: size,
-                        color: Colors.white,
-                        appleLogoImageUrl: "assets/logo/icons8-apple.svg",
-                      ),
+                      // kHeight(10),
+                      // const LoginWithText(),
+                      // kHeight(15),
+                      // SocialMediaLogin(
+                      //   size: size,
+                      //   color: Colors.white,
+                      //   appleLogoImageUrl: "assets/logo/icons8-apple.svg",
+                      // ),
                     ],
                   ),
                 ],

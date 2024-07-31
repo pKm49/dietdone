@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get_connect/http/src/utils/utils.dart';
 
 class CustomTextField extends StatelessWidget {
@@ -16,7 +17,6 @@ class CustomTextField extends StatelessWidget {
   final TextEditingController controller;
   final Icon? suffixIcon;
   final bool obscure;
-
   final String? Function(String?)? validator;
   @override
   Widget build(BuildContext context) {
@@ -25,6 +25,7 @@ class CustomTextField extends StatelessWidget {
       // focusNode: _focusNode,
       obscureText: obscure,
       keyboardType: keyboardType,
+
       controller: controller,
       decoration: InputDecoration(
         suffixIcon: suffixIcon,

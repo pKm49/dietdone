@@ -29,6 +29,7 @@ class ElevatedButton2 extends StatelessWidget {
         child: Text(
           text,
           style: TextStyle(color: textColor),
+          textAlign: TextAlign.center,
         ));
   }
 }

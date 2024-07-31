@@ -39,6 +39,7 @@ class SubscriptionDateSelectionScreen extends StatelessWidget {
             CalendarWidget(),
             ElevatedButton(
               onPressed: () async {
+                subscriptionController.paymentUrl.value = "";
                 Get.to(CheckOutScreen(
                   subscriptionCardIndex:
                   subscriptionController.subscriptionCardIdx.value,

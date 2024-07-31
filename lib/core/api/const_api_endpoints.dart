@@ -4,6 +4,8 @@ class ApiConfig {
   static const baseUrl = "http://146.190.8.123:8069";
   static String accessToken = "/oauth2/access_token";
   static String login = "/login";
+  static String sendOtp = "/send_otp";
+  static String verifyOtp = "/verify_otp";
   static String resetPassword = "/reset_password";
   static String createAddress = "/api/add_customer_address";
   static String address = "/address";
@@ -13,6 +15,7 @@ class ApiConfig {
   static String block = "/block";
   static String subscription = "/plan_choice/";
   static String createSubscription = "/subscription";
+  static String checkSubPaymentStatus = "/subscription_payment_status";
   static String appointmentBooking = "/dietitian_appointment";
   static String coupon = "/verify_coupon";
   static String notification = "/notification/";
@@ -30,6 +33,4 @@ class ApiConfig {
   static String subscriptionHistory = "/subscription/history/";
   static String submitMeal = "/set_weekday_meals";
   static String userExist = "/profile/exist/";
-  static String sendOtp = "/send_otp";
-  static String verifyOtp = "/verify_otp";
 }

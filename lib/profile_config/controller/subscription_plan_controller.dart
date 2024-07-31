@@ -10,6 +10,8 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
 class SubscriptionPlanController extends GetxController {
+  RxString referenceId = ''.obs;
+  RxString orderId = ''.obs;
   RxString transactionUrl = ''.obs;
   RxString redirectUrl = ''.obs;
   RxString paymentUrl = ''.obs;

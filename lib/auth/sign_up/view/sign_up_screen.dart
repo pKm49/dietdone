@@ -70,10 +70,10 @@ class SignUpScreen extends StatelessWidget {
                       },
                       child: GetBuilder<LocalController>(
                         builder: (controller) => CircleAvatar(
-                          radius: 62,
+                          radius: 50,
                           backgroundColor: kPrimaryColor,
                           child: CircleAvatar(
-                              radius: 58,
+                              radius: 45,
                               backgroundImage: controller.selectedImage == null
                                   ? AssetImage(
                                       "assets/profile_icon/add_profile_image.jpg",
@@ -86,6 +86,7 @@ class SignUpScreen extends StatelessWidget {
                       "Select you profile image".tr,
                       textAlign: TextAlign.center,
                     ),
+                    kHeight(5),
                     Form(
                       key: singUpController.arabicKey,
                       child: Column(
@@ -139,7 +140,7 @@ class SignUpScreen extends StatelessWidget {
                         ],
                       ),
                     ),
-                    kHeight(25),
+                    kHeight(20),
                     CustomElevatedButton(
                         theme: theme,
                         onTap: () async {
@@ -155,30 +156,30 @@ class SignUpScreen extends StatelessWidget {
                           }
                         },
                         text: "Continue".tr),
-                    kHeight(10),
-                    Row(
-                      children: [
-                        const Expanded(
-                          child:
-                              Divider(thickness: 1, color: Color(0xFFDADADA)),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 10),
-                          child: Text(
-                            "Or Login with".tr,
-                          ),
-                        ),
-                        const Expanded(
-                          child:
-                              Divider(thickness: 1, color: Color(0xFFDADADA)),
-                        ),
-                      ],
-                    ),
-                    SocialMediaLogin(
-                      appleLogoImageUrl: "assets/logo/cib_apple.svg",
-                      size: size,
-                      color: const Color(0xFFDADADA),
-                    ),
+                    // kHeight(10),
+                    // Row(
+                    //   children: [
+                    //     const Expanded(
+                    //       child:
+                    //           Divider(thickness: 1, color: Color(0xFFDADADA)),
+                    //     ),
+                    //     Padding(
+                    //       padding: const EdgeInsets.symmetric(horizontal: 10),
+                    //       child: Text(
+                    //         "Or Login with".tr,
+                    //       ),
+                    //     ),
+                    //     const Expanded(
+                    //       child:
+                    //           Divider(thickness: 1, color: Color(0xFFDADADA)),
+                    //     ),
+                    //   ],
+                    // ),
+                    // SocialMediaLogin(
+                    //   appleLogoImageUrl: "assets/logo/cib_apple.svg",
+                    //   size: size,
+                    //   color: const Color(0xFFDADADA),
+                    // ),
                   ],
                 ),
               ),

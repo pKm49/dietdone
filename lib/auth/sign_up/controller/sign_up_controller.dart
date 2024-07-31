@@ -76,20 +76,8 @@ class SignUpController extends GetxController {
         verificationId: verificationId);
   }
 
-  forgetPassword() {
-    final fireBaseController = Get.find<SignUpUsingFirebaseController>();
-    fireBaseController.forgetPassword(
-      "+${localController.selectedCountry.phoneCode}${phoneNumberController.text}",
-    );
-  }
 
-  forgetPasswordOTP(verificationId) {
-    final signUpController = Get.find<SignUpController>();
-    final fireBaseController = Get.find<SignUpUsingFirebaseController>();
-    fireBaseController.forgetPasswordOtpVerification(
-        userOtp: signUpController.forgetPasswordOtpController.text,
-        verificationId: verificationId);
-  }
+
 
   Future<void> onSignUp() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();

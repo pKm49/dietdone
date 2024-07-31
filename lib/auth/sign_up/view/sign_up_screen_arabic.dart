@@ -68,8 +68,9 @@ class SignUpScreenArabic extends StatelessWidget {
                         children: [
                           CustomTextField(
                             obscure: false,
+
                             validator: (firstName) => singUpLocalController
-                                .validate(firstName, "Please enter your name"),
+                                .validateArabic(firstName, "Please enter your name"),
                             hintText: "First name (Arabic)*".tr,
                             controller: singUpController.arabicFirstName,
                           ),
@@ -77,13 +78,15 @@ class SignUpScreenArabic extends StatelessWidget {
                           CustomTextField(
                             obscure: false,
                             validator: (lastName) => singUpLocalController
-                                .validate(lastName, "Please enter your name"),
+                                .validateArabic(lastName, "Please enter your name"),
                             hintText: "Last name (Arabic)*".tr,
                             controller: singUpController.arabicLastName,
                           ),
                           kHeight(15),
                           CustomTextField(
                             obscure: false,
+                            validator: (lastName) => singUpLocalController
+                                .checkIfEmailFormValid(lastName),
                             hintText: "Enter your email",
                             controller: singUpController.emailController,
                           ),
@@ -132,30 +135,30 @@ class SignUpScreenArabic extends StatelessWidget {
                           }
                         },
                         text: "Continue".tr),
-                    kHeight(10),
-                    Row(
-                      children: [
-                        const Expanded(
-                          child:
-                              Divider(thickness: 1, color: Color(0xFFDADADA)),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 10),
-                          child: Text(
-                            "Or Login with".tr,
-                          ),
-                        ),
-                        const Expanded(
-                          child:
-                              Divider(thickness: 1, color: Color(0xFFDADADA)),
-                        ),
-                      ],
-                    ),
-                    SocialMediaLogin(
-                      appleLogoImageUrl: "assets/logo/cib_apple.svg",
-                      size: size,
-                      color: const Color(0xFFDADADA),
-                    ),
+                    // kHeight(10),
+                    // Row(
+                    //   children: [
+                    //     const Expanded(
+                    //       child:
+                    //           Divider(thickness: 1, color: Color(0xFFDADADA)),
+                    //     ),
+                    //     Padding(
+                    //       padding: const EdgeInsets.symmetric(horizontal: 10),
+                    //       child: Text(
+                    //         "Or Login with".tr,
+                    //       ),
+                    //     ),
+                    //     const Expanded(
+                    //       child:
+                    //           Divider(thickness: 1, color: Color(0xFFDADADA)),
+                    //     ),
+                    //   ],
+                    // ),
+                    // SocialMediaLogin(
+                    //   appleLogoImageUrl: "assets/logo/cib_apple.svg",
+                    //   size: size,
+                    //   color: const Color(0xFFDADADA),
+                    // ),
                   ],
                 ),
               ),

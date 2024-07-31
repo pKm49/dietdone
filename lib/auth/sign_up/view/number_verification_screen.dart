@@ -25,7 +25,7 @@ class NumberVerificationScreen extends StatelessWidget {
     final theme = Theme.of(context);
     final localController = Get.find<LocalController>();
     return Scaffold(
-      resizeToAvoidBottomInset: false,
+      resizeToAvoidBottomInset: true,
       appBar: CustomAppBar(
         iconColor: kPrimaryColor,
         onTapBackButton: () {
@@ -35,7 +35,7 @@ class NumberVerificationScreen extends StatelessWidget {
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 30),
-        child: Column(
+        child: ListView(
           children: [
             kHeight(30),
             SizedBox(
@@ -93,7 +93,7 @@ class NumberVerificationScreen extends StatelessWidget {
                   child: CustomTextField(
                     validator: (phoneNumber) => singUpLocalController.validate(
                         phoneNumber, "Please enter your phone number"),
-                    keyboardType: TextInputType.phone,
+                    keyboardType: TextInputType.numberWithOptions(signed: true),
                     hintText: "+${localController.selectedCountry.phoneCode}",
                     controller: signUpController.phoneNumberController,
                     obscure: false,

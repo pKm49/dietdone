@@ -51,14 +51,9 @@ class PaymentGatewayWebviewState extends State<PaymentGatewayWebview> {
                 final uri = navigationAction.request.url;
                 if (uri.toString() ==
                     "${ApiConfig.baseUrl}/subscription/payment/status") {
-                  Future.delayed(Duration(seconds: 2), () {
-                    Get.off(const OTPSuccessScreen(screenName: true))!
-                        .then((value) => null);
-                  });
-
+                   Get.back();
                   return NavigationActionPolicy.CANCEL;
                 }
-                return NavigationActionPolicy.ALLOW;
               },
             ),
             _progress < 1

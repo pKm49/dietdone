@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
+import 'package:overlay_support/overlay_support.dart';
 
 class OTPService {
   final signUpController = Get.find<SignUpController>();
@@ -63,11 +64,17 @@ class OTPService {
         headers: {"Authorization": "Bearer $accessToken"},
       );
       log(response.body.toString(), name: "verify otp");
+      log(response.statusCode.toString(), name: "verify otp statuscode");
       Get.back();
+      final statusCode = jsonDecode(response.body)["statusCode"];
 
-      if (response.statusCode == 200) {
+      if (statusCode == 200) {
         log(response.body.toString(), name: "verify otp");
         Get.to(OTPSuccessScreen(screenName: false));
+      }else{
+        Get.snackbar("OTP is not valid",
+            "OTP you entered didn't match with the once sent to you",
+            backgroundColor: kPrimaryColor, colorText: kWhiteColor);
       }
     } catch (e) {
       Get.back();

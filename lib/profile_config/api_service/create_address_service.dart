@@ -46,6 +46,8 @@ class CreateAddressApiServices {
     final header = {"Authorization": "Bearer $accessToken"};
     log(url.toString());
     try {
+      print("new address body");
+      print(json.encode(model).toString());
       final response = await http.patch(Uri.parse(url),
           headers: header, body: json.encode(model));
       log("here");

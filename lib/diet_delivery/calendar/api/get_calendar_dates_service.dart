@@ -21,9 +21,9 @@ class GetCalendarDatesApiService {
     final response = await http
         .get(Uri.parse(url), headers: {"Authorization": "Bearer $accessToken"});
 
-    log(response.body.toString());
+    log(response.body.toString(),name: "getCalendarDates");
     if (response.statusCode == 200) {
-      final Map<String, dynamic> payload = jsonDecode(response.body)["payload"];
+      final Map<String, dynamic> payload = jsonDecode(response.body)["payload"]??{};
       calendarController.SubscriptionActiveDates.value = payload;
       log(calendarController.SubscriptionActiveDates.toString(),
           name: "SubscriptionActiveDates");

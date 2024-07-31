@@ -1,3 +1,4 @@
+import 'package:diet_diet_done/auth/login/api/reset_password_service.dart';
 import 'package:diet_diet_done/auth/login/view/create_new_pass_screen.dart';
 import 'package:diet_diet_done/auth/login/view/login_screen.dart';
 import 'package:diet_diet_done/auth/sign_up/controller/sign_up_controller.dart';
@@ -8,9 +9,8 @@ import 'package:get/get.dart';
 import 'package:pinput/pinput.dart';
 
 class ForgotPasswordOtpScreen extends StatelessWidget {
-  const ForgotPasswordOtpScreen({super.key, required this.verificationId});
+  const ForgotPasswordOtpScreen({super.key});
 
-  final String verificationId;
 
   @override
   Widget build(BuildContext context) {
@@ -34,23 +34,25 @@ class ForgotPasswordOtpScreen extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Pinput(
-                  length: 6,
-                  controller: signUpController.forgetPasswordOtpController,
-                  defaultPinTheme: PinTheme(
+                Expanded(
+                  child: Pinput(
+                    length: 6,
+                    controller: signUpController.forgetPasswordOtpController,
+                    defaultPinTheme: PinTheme(
+                        width: 50,
+                        height: 50,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            color: Colors.grey[200])),
+                    submittedPinTheme: PinTheme(
                       width: 50,
                       height: 50,
                       decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          color: Colors.grey[200])),
-                  submittedPinTheme: PinTheme(
-                    width: 50,
-                    height: 50,
-                    decoration: BoxDecoration(
-                        border: Border(bottom: BorderSide(color: kBlackColor))),
-                    textStyle: TextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.w500,
+                          border: Border(bottom: BorderSide(color: kBlackColor))),
+                      textStyle: TextStyle(
+                        fontSize: 24,
+                        fontWeight: FontWeight.w500,
+                      ),
                     ),
                   ),
                 ),
@@ -58,8 +60,9 @@ class ForgotPasswordOtpScreen extends StatelessWidget {
             ),
             kHeight(20),
             ElevatedButton(
-                onPressed: () {
-                  signUpController.forgetPasswordOTP(verificationId);
+                onPressed: () async {
+                  FocusManager.instance.primaryFocus?.unfocus();
+                  await ResetPasswordApiService().verifyOtp();
                 },
                 style: ElevatedButton.styleFrom(backgroundColor: kBlackColor),
                 child: Text(

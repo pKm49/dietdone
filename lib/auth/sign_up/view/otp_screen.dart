@@ -29,7 +29,7 @@ class _OtpScreenState extends State<OtpScreen> {
     final Size size = MediaQuery.of(context).size;
     final theme = Theme.of(context);
     return Scaffold(
-      resizeToAvoidBottomInset: false,
+      resizeToAvoidBottomInset: true,
       appBar: CustomAppBar(
         iconColor: kPrimaryColor,
         onTapBackButton: () {
@@ -39,7 +39,7 @@ class _OtpScreenState extends State<OtpScreen> {
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 30),
-        child: Column(
+        child: ListView(
           children: [
             kHeight(71),
             SizedBox(

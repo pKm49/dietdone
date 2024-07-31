@@ -40,10 +40,33 @@ class LocalController extends GetxController {
     Get.updateLocale(local);
   }
 
+  validateArabic(String? value, message) {
+    String validOtpPattern = r'[^\p{Arabic}\w\s]';
+    RegExp validOtpRegex = new RegExp(validOtpPattern);
+
+    if (value!.isEmpty || !validOtpRegex.hasMatch(value)) {
+      return "Please provide an arabic name";
+    }
+
+    return null;
+  }
+
   validate(String? value, message) {
     if (value == null || value.isEmpty) {
       return message;
     }
+    return null;
+  }
+
+  String? checkIfEmailFormValid(String? email) {
+    String validOtpPattern = r'(^$)|(^.*@.*\..*$)';
+    RegExp validOtpRegex = new RegExp(validOtpPattern);
+
+    if (email!.isEmpty || !validOtpRegex.hasMatch(email)) {
+      return "Please provide a valid Email";
+    }
+
+
     return null;
   }
 

@@ -190,9 +190,9 @@ class EditAddressScreen extends StatelessWidget {
                         "block": signUpController.blockName,
                         "street": signUpController.streetController.text,
                         "jedha": signUpController.jedahController.text,
-                        "house_number": signUpController.flatNoController.text,
-                        "floor_number": signUpController.flatNoController.text,
-                        "apartment_no": signUpController.floorNoController.text,
+                        "house_number": signUpController.houseNumberController.text,
+                        "floor_number": signUpController.floorNoController.text,
+                        "apartment_no": signUpController.flatNoController.text,
                         "delivery_time": 4,
                         "comments": signUpController.commentsController.text
                       });

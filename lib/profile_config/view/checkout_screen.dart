@@ -5,6 +5,7 @@ import 'package:diet_diet_done/core/constraints/const_colors.dart';
 import 'package:diet_diet_done/core/constraints/constraints.dart';
 import 'package:diet_diet_done/profile_config/api_service/create_subscription_service.dart';
 import 'package:diet_diet_done/profile_config/controller/coupon_controller.dart';
+import 'package:diet_diet_done/profile_config/controller/plan_categories_controller.dart';
 import 'package:diet_diet_done/profile_config/controller/subscription_plan_controller.dart';
 import 'package:diet_diet_done/profile_config/view/payment_gateway_webview.dart';
 
@@ -22,6 +23,8 @@ class CheckOutScreen extends StatelessWidget {
     final couponController = Get.find<CouponController>();
     log(subscriptionPlanController.transactionUrl.value,
         name: "transaction url payment screen");
+
+    final planController = Get.find<PlanCategoriesController>();
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
@@ -74,178 +77,178 @@ class CheckOutScreen extends StatelessWidget {
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              "Order Summary",
-              style: theme.textTheme.titleLarge,
-            ),
-            SizedBox(
-              width: double.infinity,
-              child: const Card(
-                color: Colors.white,
-                child: Padding(
-                  padding: EdgeInsets.all(10.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "Summer pack",
-                        style: TextStyle(fontSize: 18),
-                      ),
-                      Text("Weight loss"),
-                      Text(
-                        "20.000kd",
-                        style: TextStyle(
-                          fontSize: 12,
-                          color: Colors.grey,
+            Expanded(
+              child: ListView(
+                children: [
+                  Visibility(
+
+                    child: Text(
+                      "Order Reference",
+                      style: theme.textTheme.titleLarge,
+                    ),
+                      visible:subscriptionPlanController.paymentUrl.value !=""
+                  ),
+                  kHeight(10),
+                  Visibility(
+                    visible:subscriptionPlanController.paymentUrl.value !="",
+                    child: SizedBox(
+                      width: double.infinity,
+                      child:   Card(
+                        color: Colors.white,
+                        child: Padding(
+                          padding: EdgeInsets.all(10.0),
+                          child:PaymentSummaryText(
+                            amount:subscriptionPlanController.paymentUrl.value,
+                            text: 'ID',
+                          ),
                         ),
                       ),
-                    ],
+                    ),
                   ),
-                ),
-              ),
-            ),
-            Text(
-              "Payment Method",
-              style: theme.textTheme.titleLarge,
-            ),
-            Column(
-              children: [
-                Card(
-                  color: kWhiteColor,
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 10),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Row(
+                  kHeight(20),
+                  Text(
+                    "Order Summary",
+                    style: theme.textTheme.titleLarge,
+                  ),
+                  kHeight(10),
+                  SizedBox(
+                    width: double.infinity,
+                    child:   Card(
+                      color: Colors.white,
+                      child: Padding(
+                        padding: EdgeInsets.all(10.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const Icon(
-                              Icons.check_circle,
-                              color: Colors.deepOrange,
+                            Text(planController.planId !=null?
+                              planController.planCategories.where((p0) => p0.id==planController.planId).toList().isNotEmpty?
+                              planController.planCategories.where((p0) => p0.id==planController.planId).toList()[0].name:
+                              "":"",
+                              style: TextStyle(fontSize: 18),
                             ),
-                            kWidth(10),
-                            const Text(
-                              "KNET",
-                              style: TextStyle(fontSize: 20),
+                            Text("${subscriptionPlanController.subscriptionPlan[subscriptionCardIndex].name}"),
+                            Text(
+                              "${subscriptionPlanController.subscriptionPlan[subscriptionCardIndex].price} KD",
+                              style: TextStyle(
+                                fontSize: 12,
+                                color: Colors.grey,
+                              ),
                             ),
                           ],
                         ),
-                        Container(
-                          margin: const EdgeInsets.all(10),
-                          height: 40,
-                          child: const Image(
-                              image: AssetImage(
-                            "assets/logo/knet-logo-2360944FA2-seeklogo.com.png",
-                          )),
-                        )
-                      ],
+                      ),
                     ),
                   ),
-                ),
-                Card(
-                  color: kWhiteColor,
-                  child: Row(
+                  kHeight(20),
+                  Column(
                     children: [
-                      kWidth(10),
-                      const Text(
-                        "Coupon Code",
-                        style: TextStyle(fontSize: 20),
-                      ),
-                      Expanded(
-                          child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Obx(
-                          () => TextFormField(
-                            controller:
-                                subscriptionPlanController.couponController,
-                            style: const TextStyle(
-                              fontSize: 20,
+                      Card(
+                        color: kWhiteColor,
+                        child: Row(
+                          children: [
+                            kWidth(10),
+                            const Text(
+                              "Coupon Code",
+                              style: TextStyle(fontSize: 20),
                             ),
-                            decoration: InputDecoration(
-                                suffixIcon: couponController.isLoading.value
-                                    ? Container(
-                                        decoration: BoxDecoration(
-                                            color: Colors.deepOrange,
-                                            borderRadius:
-                                                BorderRadius.circular(10)),
-                                        child: Center(
-                                          child: CircularProgressIndicator(),
-                                        ))
-                                    : InkWell(
-                                        onTap: () {
-                                          couponController.verifyCoupon();
-                                        },
-                                        child: Container(
-                                          decoration: BoxDecoration(
-                                              color: Colors.deepOrange,
-                                              borderRadius:
-                                                  BorderRadius.circular(10)),
-                                          child: const Icon(
-                                            Icons.check,
-                                            color: kWhiteColor,
-                                            size: 40,
-                                          ),
-                                        ),
-                                      ),
-                                isDense: true,
-                                contentPadding:
-                                    const EdgeInsets.symmetric(vertical: 7)),
-                          ),
+                            Expanded(
+                                child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Obx(
+                                () => TextFormField(
+                                  controller:
+                                      subscriptionPlanController.couponController,
+                                  style: const TextStyle(
+                                    fontSize: 20,
+                                  ),
+                                  decoration: InputDecoration(
+                                      suffixIcon: couponController.isLoading.value
+                                          ? Container(
+                                              decoration: BoxDecoration(
+                                                  color: Colors.deepOrange,
+                                                  borderRadius:
+                                                      BorderRadius.circular(10)),
+                                              child: Center(
+                                                child: CircularProgressIndicator(),
+                                              ))
+                                          : InkWell(
+                                              onTap: () {
+                                                couponController.verifyCoupon();
+                                              },
+                                              child: Container(
+                                                decoration: BoxDecoration(
+                                                    color: Colors.deepOrange,
+                                                    borderRadius:
+                                                        BorderRadius.circular(10)),
+                                                child: const Icon(
+                                                  Icons.check,
+                                                  color: kWhiteColor,
+                                                  size: 40,
+                                                ),
+                                              ),
+                                            ),
+                                      isDense: true,
+                                      contentPadding:
+                                          const EdgeInsets.symmetric(vertical: 7)),
+                                ),
+                              ),
+                            ))
+                          ],
                         ),
-                      ))
+                      ),
                     ],
                   ),
-                ),
-              ],
-            ),
-            Text(
-              "Payment Summary",
-              style: theme.textTheme.titleLarge,
-            ),
-
-            // final couponsValue = couponController.couponsList[0];
-
-            Obx(
-              () {
-                return Card(
-                  color: kWhiteColor,
-                  child: Padding(
-                    padding: EdgeInsets.all(10.0),
-                    child: Column(
-                      children: [
-                        PaymentSummaryText(
-                          amount: couponController.couponsList.isEmpty
-                              ? "${subscriptionPlanController.subscriptionPlan[subscriptionCardIndex].price}"
-                              : "${couponController.couponsList[0].total}",
-                          text: 'Sub Total',
-                        ),
-                        PaymentSummaryText(
-                          amount: couponController.couponsList.isEmpty
-                              ? '0.00 KD'
-                              : "${couponController.couponsList[0].discount}",
-                          text: 'Discount',
-                        ),
-                        PaymentSummaryText(
-                          amount: couponController.couponsList.isEmpty
-                              ? "${subscriptionPlanController.subscriptionPlan[subscriptionCardIndex].price}"
-                              : "${couponController.couponsList[0].grandTotal}",
-                          text: 'Total',
-                          color: Colors.deepOrange,
-                        ),
-                      ],
-                    ),
+                  kHeight(20),
+                  Text(
+                    "Payment Summary",
+                    style: theme.textTheme.titleLarge,
                   ),
-                );
-              },
-            ),
+                  kHeight(10),
+                  // final couponsValue = couponController.couponsList[0];
 
+                  Obx(
+                    () {
+                      return Card(
+                        color: kWhiteColor,
+                        child: Padding(
+                          padding: EdgeInsets.all(10.0),
+                          child: Column(
+                            children: [
+                              PaymentSummaryText(
+                                amount: couponController.couponsList.isEmpty
+                                    ? "${subscriptionPlanController.subscriptionPlan[subscriptionCardIndex].price} KD"
+                                    : "${couponController.couponsList[0].total} KD",
+                                text: 'Sub Total',
+                              ),
+                              PaymentSummaryText(
+                                amount: couponController.couponsList.isEmpty
+                                    ? '0.00 KD'
+                                    : "${couponController.couponsList[0].discount} KD",
+                                text: 'Discount',
+                              ),
+                              PaymentSummaryText(
+                                amount: couponController.couponsList.isEmpty
+                                    ? "${subscriptionPlanController.subscriptionPlan[subscriptionCardIndex].price} KD"
+                                    : "${couponController.couponsList[0].grandTotal} KD",
+                                text: 'Total',
+                                color: Colors.deepOrange,
+                              ),
+                            ],
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+
+
+                ],
+              ),
+            ),
             ElevatedButton(
                 onPressed: () async {
                   final statusCode =
-                      await CreateSubscriptionAPiService().createSubscription( );
+                  await CreateSubscriptionAPiService().createSubscription( );
                   log(statusCode.toString(), name: "statusCode");
                   if (statusCode == 400) {
                     toast("Already subscription plan exists",
@@ -260,7 +263,8 @@ class CheckOutScreen extends StatelessWidget {
                     } else {
                       log(subscriptionPlanController.transactionUrl.toString(),
                           name: "transaction Url name");
-                      Get.to(const PaymentGatewayWebview());
+                      Get.to(const PaymentGatewayWebview())?.then(
+                              (value) => CreateSubscriptionAPiService().checkOrderStatus());
                     }
                   }
 
