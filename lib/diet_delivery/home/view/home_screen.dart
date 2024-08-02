@@ -48,7 +48,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
     await Future.wait<void>([
       getProfileController.fetchProfileData(),
-      subscriptionController.getSubscriptionDetails(),
+      subscriptionController.getSubscriptionDetails(false),
       GetCalendarDatesApiService().getCalendarDates(),
       homeScreenController.fetchNotification(),
       ShowMenuApiService().showMenu(),
@@ -91,7 +91,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     children: [
                       subscriptionController.isLoading.value
                           ? ProfileDietCardShimmer()
-                          : subscriptionController.subscriptionDetails.isEmpty
+                          : subscriptionController.subscriptionDetails.where((p0) => p0.subscriptionStatus=='in_progress').toList().isEmpty
                               ? Center(
                                   child: Container(
                                     height: 250,
