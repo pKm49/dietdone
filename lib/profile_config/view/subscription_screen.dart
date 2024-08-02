@@ -77,7 +77,7 @@ class SubscriptionPlanTopSection extends StatelessWidget {
       children: [
         Text(
           "Select Your Choice",
-          style: theme.textTheme.titleMedium,
+          style: theme.textTheme.titleSmall,
         ),
         InkWell(
           onTap: () => Get.dialog(AlertDialog(
