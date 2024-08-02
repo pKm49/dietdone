@@ -50,7 +50,7 @@ class OTPSuccessScreen extends StatelessWidget {
             kHeight(12),
             Text(
               screenName
-                  ? "Please select your preferred payment method to\nproceed with your purchase"
+                  ? "Payment has been captured successfully, Continue to activate your subscription"
                   : "The OTP was successfully verified\nWelcome to Diet Done",
               textAlign: TextAlign.center,
               style: theme.textTheme.titleSmall,
@@ -60,9 +60,10 @@ class OTPSuccessScreen extends StatelessWidget {
                 theme: theme,
                 onTap: screenName
                     ? () async {
+                  print("purchase success home clicked for activation");
                         await ActiveSubscriptionAPiService()
                             .activeSubscription();
-                        Get.offAll(BottomNavBar());
+
                       }
                     : () {
                         Get.to(AddressForm(
