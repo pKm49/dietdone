@@ -82,7 +82,9 @@ class CreateSubscriptionAPiService {
           responseBody["payload"][0]["redirect_url"];
           subscriptionController.paymentUrl.value =
           responseBody["payload"][0]["payment_reference"];
-
+          //
+          subscriptionController.paymentCheckUrl.value =
+          responseBody["payload"][0]["payment_status_url"];
           subscriptionController
               .updatePaymentData(responseBody["payload"][0]["transaction_url"]);
           log(subscriptionController.transactionUrl.value,
@@ -132,7 +134,7 @@ class CreateSubscriptionAPiService {
       log("responseData");
       log(responseData.toString());
       return responseData
-          .map((e) => SubscriptionDetailsModel.fromJson(e)).where((element) => element.subscriptionStatus=='in_progress')
+          .map((e) => SubscriptionDetailsModel.fromJson(e))
           .toList();
     } else {
       throw Exception(
@@ -177,7 +179,8 @@ class CreateSubscriptionAPiService {
         final errorMessage = responseBody["error"];
         if (responseBody["payload"] != null) {
           if(responseBody["payload"][0]['payment_status'] =="paid" ){
-            Get.off(const OTPSuccessScreen(screenName: true));
+            subscriptionController.getSubscriptionDetails(true);
+
           } else{
             throw Exception(
                 "Failed to capture payment: ${response.statusCode}");

@@ -49,11 +49,16 @@ class PaymentGatewayWebviewState extends State<PaymentGatewayWebview> {
               },
               shouldOverrideUrlLoading: (controller, navigationAction) async {
                 final uri = navigationAction.request.url;
+
                 if (uri.toString() ==
                     "${ApiConfig.baseUrl}/subscription/payment/status") {
-                   Get.back();
-                  return NavigationActionPolicy.CANCEL;
+                  print("reached back condition");
+                    Get.back();
+                    return NavigationActionPolicy.CANCEL;
+                }else{
+                    return NavigationActionPolicy.ALLOW;
                 }
+
               },
             ),
             _progress < 1
