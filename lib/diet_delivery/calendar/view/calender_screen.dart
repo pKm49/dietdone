@@ -39,7 +39,7 @@ class CalenderScreen extends StatelessWidget {
                     style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
                   ),
                   const Divider(),
-                  (calendarController.SubscriptionActiveDates.isEmpty || subscriptionController.subscriptionDetails.isEmpty)
+                  (calendarController.SubscriptionActiveDates.isEmpty || subscriptionController.subscriptionDetails.where((p0) => p0.subscriptionStatus=='in_progress').toList().isEmpty)
                       ? Text("Your Subscription is not yet activated!..")
                       : Card(
                           color: kWhiteColor,
