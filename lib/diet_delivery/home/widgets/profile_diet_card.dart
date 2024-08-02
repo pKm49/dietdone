@@ -20,7 +20,9 @@ class ProfileDIetCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final endDateTime = subscriptionController.subscriptionDetails[0].endDate;
+    final endDateTime = subscriptionController.subscriptionDetails.where((p0) => p0.subscriptionStatus=='in_progress').toList().isNotEmpty?
+
+    subscriptionController.subscriptionDetails.where((p0) => p0.subscriptionStatus=='in_progress').toList()[0].endDate:DateTime.now();
     final endDate = DateFormat("dd-MM-yyyy").format(endDateTime);
     final currentDate = DateTime.now();
     Duration difference = endDateTime.difference(currentDate);
@@ -47,9 +49,9 @@ class ProfileDIetCard extends StatelessWidget {
                     kHeight(size.height * 0.1),
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 5),
-                      child: Text(
+                      child: Text(subscriptionController.subscriptionDetails.where((p0) => p0.subscriptionStatus=='in_progress').toList().isNotEmpty?
                           subscriptionController
-                              .subscriptionDetails[0].planName,
+                              .subscriptionDetails.where((p0) => p0.subscriptionStatus=='in_progress').toList()[0].planName:"",
                           maxLines: 2,
                           textAlign: TextAlign.center,
                           style: TextStyle(
