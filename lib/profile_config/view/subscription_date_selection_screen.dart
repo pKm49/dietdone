@@ -25,7 +25,7 @@ class SubscriptionDateSelectionScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             Text(
-              "Select Staring Date",
+              "Select Starting Date",
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
             ),
             GetBuilder<SubscriptionPlanController>(
@@ -174,7 +174,7 @@ class _CalendarWidgetState extends State<CalendarWidget> {
         }
 
         bool isEnabled =
-            day.isAfter(DateTime.now().subtract(Duration(days: 1)));
+            day.isAfter(DateTime.now().subtract(Duration(days: 1))) ;
 
         Widget dayWidget = Expanded(
           child: GestureDetector(
