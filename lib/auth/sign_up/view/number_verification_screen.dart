@@ -57,36 +57,36 @@ class NumberVerificationScreen extends StatelessWidget {
             kHeight(44),
             Row(
               children: [
-                Container(
-                  height: 56.4,
-                  width: size.width * 0.15,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: textFieldColor,
-                      border: Border.all(color: borderColor)),
-                  child: InkWell(
-                    onTap: () {
-                      showCountryPicker(
-                        countryListTheme: CountryListThemeData(
-                            bottomSheetHeight: size.height * 0.7),
-                        context: context,
-                        onSelect: (value) {
-                          localController.changeCountry(value);
-                        },
-                      );
-                    },
-                    child: GetBuilder<LocalController>(
-                      builder: (controller) => Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(localController.selectedCountry.flagEmoji),
-                          const Icon(Icons.arrow_drop_down)
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-                kWidth(10),
+                // Container(
+                //   height: 56.4,
+                //   width: size.width * 0.15,
+                //   decoration: BoxDecoration(
+                //       borderRadius: BorderRadius.circular(10),
+                //       color: textFieldColor,
+                //       border: Border.all(color: borderColor)),
+                //   child: InkWell(
+                //     onTap: () {
+                //       showCountryPicker(
+                //         countryListTheme: CountryListThemeData(
+                //             bottomSheetHeight: size.height * 0.7),
+                //         context: context,
+                //         onSelect: (value) {
+                //           localController.changeCountry(value);
+                //         },
+                //       );
+                //     },
+                //     child: GetBuilder<LocalController>(
+                //       builder: (controller) => Row(
+                //         mainAxisAlignment: MainAxisAlignment.center,
+                //         children: [
+                //           Text(localController.selectedCountry.flagEmoji),
+                //           const Icon(Icons.arrow_drop_down)
+                //         ],
+                //       ),
+                //     ),
+                //   ),
+                // ),
+                // kWidth(10),
                 Expanded(
                     child: Form(
                   key: signUpController.numberKey,

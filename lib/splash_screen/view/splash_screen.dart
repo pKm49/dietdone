@@ -21,7 +21,6 @@ class _SplashScreenState extends State<SplashScreen> {
     Future.delayed(Duration(seconds: 2), () async {
       // await callAccessTokenEvery24hr();
       await GetAccessTokenService().getAccessToken();
-
       redirectToNextScreen();
     });
 

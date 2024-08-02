@@ -36,11 +36,15 @@ class CarousalPlanSlider extends StatelessWidget {
                 planController.planId =
                     planController.planCategories[realIndex].id;
                 log(planController.planId.toString());
+                print("image is");
+                log(planController.planCategories[realIndex].image.toString());
                 final categories = planController.planCategories[index];
                 return InkWell(
                   onTap: () {
                     planController.planId = categories.id;
                     log(planController.planId.toString(), name: "Plan Id...");
+                    log("image is");
+                    log(planController.planCategories[realIndex].image.toString());
                     Get.to(SubscriptionSCreen());
                   },
                   child: Stack(

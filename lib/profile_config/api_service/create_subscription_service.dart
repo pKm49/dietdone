@@ -129,8 +129,10 @@ class CreateSubscriptionAPiService {
 
     if (response.statusCode == 200) {
       final List<dynamic> responseData = json.decode(response.body)["payload"];
+      log("responseData");
+      log(responseData.toString());
       return responseData
-          .map((e) => SubscriptionDetailsModel.fromJson(e))
+          .map((e) => SubscriptionDetailsModel.fromJson(e)).where((element) => element.subscriptionStatus=='in_progress')
           .toList();
     } else {
       throw Exception(

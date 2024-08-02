@@ -18,6 +18,8 @@ class GetPlanCategoriesAPiServices {
     if (response.statusCode == 200) {
       log(response.body);
       final List<dynamic> responseData = json.decode(response.body)["payload"];
+      print("GetPlanCategoriesAPiServices responseData");
+      print(responseData);
       final List<GetPlanCategoriesModel> plans = responseData
           .map((json) => GetPlanCategoriesModel.fromJson(json))
           .toList();

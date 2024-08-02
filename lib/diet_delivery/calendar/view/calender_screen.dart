@@ -2,6 +2,7 @@ import 'package:diet_diet_done/auth/sign_up/widget/Clip_path.dart';
 import 'package:diet_diet_done/core/constraints/const_colors.dart';
 import 'package:diet_diet_done/diet_delivery/calendar/controller/calendar_controller.dart';
 import 'package:diet_diet_done/diet_delivery/calendar/widgets/calendar_widget.dart';
+import 'package:diet_diet_done/profile_config/controller/subscription_plan_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -12,6 +13,7 @@ class CalenderScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     final calendarController = Get.find<CalendarController>();
+    final subscriptionController = Get.find<SubscriptionPlanController>();
 
     return Scaffold(
       appBar: AppBar(
@@ -37,7 +39,7 @@ class CalenderScreen extends StatelessWidget {
                     style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
                   ),
                   const Divider(),
-                  calendarController.SubscriptionActiveDates.isEmpty
+                  (calendarController.SubscriptionActiveDates.isEmpty || subscriptionController.subscriptionDetails.isEmpty)
                       ? Text("Your Subscription is not yet activated!..")
                       : Card(
                           color: kWhiteColor,

@@ -1,7 +1,7 @@
 class ApiConfig {
   static const clientId = "6xnfBLxO7cOyZ2tQeU7nQGWtT1zLXq";
   static const secretKey = "AmJVWEDv3Q8Je1ZmPdyiS7ydBJiPNW";
-  static const baseUrl = "http://146.190.8.123:8069";
+  static const baseUrl = "https://vertexlabs.online";
   static String accessToken = "/oauth2/access_token";
   static String login = "/login";
   static String sendOtp = "/send_otp";

@@ -91,7 +91,7 @@ class CustomAppBarTile extends StatelessWidget {
                     final supportNumber =
                         await GetSupportNumberApiService().getSupportNumber();
                     log(supportNumber);
-                    UrlLauncher.launch('tel: $supportNumber');
+                    UrlLauncher.launch('tel://$supportNumber');
                   },
                   child: SvgPicture.asset(
                     "assets/icon/Connect.svg",
