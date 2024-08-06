@@ -15,11 +15,11 @@ import 'package:shared_preferences/shared_preferences.dart';
 class LoginScreen extends StatelessWidget {
   LoginScreen({super.key});
   final signUpController = Get.find<SignUpController>();
+  final controller = Get.find<LoginController>();
 
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    final controller = Get.find<LoginController>();
     final theme = Theme.of(context);
     return Scaffold(
         resizeToAvoidBottomInset: false,

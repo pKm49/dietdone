@@ -30,8 +30,16 @@ class PaymentGatewayWebviewState extends State<PaymentGatewayWebview> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        body: Stack(
+        body: Column(
           children: [
+            Visibility(
+              visible: _progress<1,
+              child: Container(
+                child: LinearProgressIndicator(
+                  value: _progress,
+                ),
+              ),
+            ),
             InAppWebView(
               initialUrlRequest: URLRequest(
                   url: WebUri(subscriptionPlanController.transactionUrl.value)),
@@ -61,13 +69,7 @@ class PaymentGatewayWebviewState extends State<PaymentGatewayWebview> {
 
               },
             ),
-            _progress < 1
-                ? Container(
-                    child: LinearProgressIndicator(
-                      value: _progress,
-                    ),
-                  )
-                : SizedBox()
+
           ],
         ),
       ),

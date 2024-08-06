@@ -25,20 +25,20 @@ class CreateNewPassScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                "Create new password",
+                "create_new_password".tr,
                 style: theme.textTheme.titleMedium,
               ),
               kHeight(10),
-              const Text(
-                  "Your new password must be unique from those previously used."),
+                Text(
+                  "unique_password_msg".tr),
               kHeight(50),
               TextFormField(
                 obscureText: true,
                 controller: signUpController.newPasswordController,
-                decoration: const InputDecoration(hintText: "New Password"),
+                decoration:   InputDecoration(hintText: "new_password".tr),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return "Please enter your new password";
+                    return "please_enter_new_password".tr;
                   } else {
                     return null;
                   }

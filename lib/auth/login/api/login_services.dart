@@ -68,7 +68,6 @@ class LoginApiService {
     } catch (e) {
       await prefs.setString("mobile", "");
 
-      Get.back();
       log(e.toString(), name: "error");
     }
   }

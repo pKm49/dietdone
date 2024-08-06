@@ -26,10 +26,13 @@ class ElevatedButton2 extends StatelessWidget {
           fixedSize: Size(size.width * 0.5, size.height * 0.04),
         ),
         onPressed: onPressed,
-        child: Text(
-          text,
-          style: TextStyle(color: textColor),
-          textAlign: TextAlign.center,
+        child: FittedBox(
+          fit: BoxFit.scaleDown,
+          child: Text(
+            text,
+            style: TextStyle(color: textColor),
+            textAlign: TextAlign.center,
+          ),
         ));
   }
 }

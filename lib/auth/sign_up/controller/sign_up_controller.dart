@@ -128,7 +128,7 @@ class SignUpController extends GetxController {
 
   Future updateUserProfile(mobile, lastName, name, email) async {
     await SignUpApiServices().UpdateUserProfile(mobile, lastName, name, email);
-    dispose();
+
   }
 
   Future checkUserLogin() async {

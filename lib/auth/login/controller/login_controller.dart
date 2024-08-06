@@ -29,7 +29,7 @@ class LoginController extends GetxController {
   Future onLogin() async {
     if (formKey.currentState!.validate()) {
       await LoginApiService().userLogin();
-      dispose();
+      // dispose();
       return;
     }
   }

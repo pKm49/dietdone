@@ -102,24 +102,25 @@ class SignUpApiServices {
           "email": email,
         }),
       );
-
+      Get.back();
       log(response.body.toString(), name: "here");
       final statusCode = jsonDecode(response.body)["statusCode"];
       log(statusCode.toString(), name: "updateUser Profile status code");
       if (statusCode == 200) {
+        Get.snackbar("Successful", "Profile updated successfully..",backgroundColor: kPrimaryColor, colorText: kWhiteColor);
+
         await profileController.fetchProfileData();
         log(response.body.toString(), name: "updated User profile");
         log(signUpController.mobileNumber!,
             name: "sign up controller mobile number.........");
         await prefs.setString("mobile", signUpController.mobileNumber!);
+
         Get.back();
+
       }
     } catch (e) {
       Get.back();
-
       log(e.toString());
-    } finally {
-      Get.back();
     }
   }
 }

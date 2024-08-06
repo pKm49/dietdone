@@ -8,6 +8,7 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
+import 'package:overlay_support/overlay_support.dart';
 import '../../../core/api/const_api_endpoints.dart';
 
 class SubmitSelectedMealApiService {
@@ -17,45 +18,52 @@ class SubmitSelectedMealApiService {
 
   Future submitSelectedMeal(
       int subId, List mealCategoryId, List mealIdx, selectedDate) async {
-    log(mealIdx.toString(), name: "meal id");
-    log(mealCategoryId.toString(), name: "meal category id");
-    log(subId.toString(), name: "subscription id");
+    try{
+      toast("submitSelectedMeal api triggered");
 
-    Get.dialog(
-      Center(
-        child: CircularProgressIndicator(
-          color: kPrimaryColor,
+      Get.dialog(
+        Center(
+          child: CircularProgressIndicator(
+            color: kPrimaryColor,
+          ),
         ),
-      ),
-      barrierDismissible: false,
-    );
+        barrierDismissible: false,
+      );
 
-    final accessToken = await storage.read(key: "access_token");
-    final formatSelectedDate = DateFormat("yyyy-MM-dd").format(selectedDate);
+      final accessToken = await storage.read(key: "access_token");
+      final formatSelectedDate = DateFormat("yyyy-MM-dd").format(selectedDate);
 
-    List<Map<String, List<int>>> mealConfig = [];
-    for (int i = 0; i < mealCategoryId.length; i++) {
-      mealConfig.add({mealCategoryId[i].toString(): mealIdx[i]});
-    }
-    log(mealConfig.toString(), name: "meal submitting map");
-    final response = await http.patch(
-      Uri.parse(url),
-      headers: {"Authorization": "Bearer $accessToken"},
-      body: json.encode({
-        "subscription_id": subId,
-        "date": formatSelectedDate,
-        "meal_config": mealConfig,
-      }),
-    );
+      List<Map<String, List<int>>> mealConfig = [];
+      for (int i = 0; i < mealCategoryId.length; i++) {
+        mealConfig.add({mealCategoryId[i].toString(): mealIdx[i]});
+      }
+      log(mealConfig.toString(), name: "meal submitting map");
+      final response = await http.patch(
+        Uri.parse(url),
+        headers: {"Authorization": "Bearer $accessToken"},
+        body: json.encode({
+          "subscription_id": subId,
+          "date": formatSelectedDate,
+          "meal_config": mealConfig,
+        }),
+      );
 
-    Get.back();
-    log(response.body, name: "submit selected meal");
-
-    if (response.statusCode == 200) {
       Get.back();
       log(response.body, name: "submit selected meal");
-      dietMenuController.mealCategoryIdx.clear();
-      Get.snackbar("Order confirmed..", "Selected Meals",backgroundColor: kPrimaryColor, colorText: kWhiteColor);
+
+      if (response.statusCode == 200) {
+        Get.back();
+        log(response.body, name: "submit selected meal");
+        dietMenuController.mealCategoryIdx.clear();
+        Get.snackbar("Order confirmed..", "Selected Meals",backgroundColor: kPrimaryColor, colorText: kWhiteColor);
+      }
+    }catch(e,st){
+      toast("SubmitSelectedMealApiService" );
+      log(e.toString() );
+      log(st.toString() );
+
+      Get.back();
     }
+
   }
 }

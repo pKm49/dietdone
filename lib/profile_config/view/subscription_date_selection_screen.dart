@@ -174,7 +174,7 @@ class _CalendarWidgetState extends State<CalendarWidget> {
         }
 
         bool isEnabled =
-            day.isAfter(DateTime.now().subtract(Duration(days: 1))) ;
+            day.isAfter(DateTime.now().add(Duration(days: 1))) ;
 
         Widget dayWidget = Expanded(
           child: GestureDetector(

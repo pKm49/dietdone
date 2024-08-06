@@ -52,14 +52,15 @@ class CreateAddressApiServices {
           headers: header, body: json.encode(model));
       log("here");
       log(response.body, name: "error update address");
+      Get.back();
       if (response.statusCode == 200) {
+        Get.snackbar("Successful", "Address updated successfully..",backgroundColor: kPrimaryColor, colorText: kWhiteColor);
+
         log(response.body.toString(), name: "update address");
         await addressController.fetchAddress();
         Get.back();
       }
     } catch (e) {
-      log(e.toString(), name: "error");
-    } finally {
       Get.back();
     }
   }

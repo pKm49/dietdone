@@ -50,6 +50,7 @@ class DietMenuController extends GetxController {
 
   Future<void> submitSelectMeals() async {
     try {
+      toast("submitSelectMeals triggered");
       log(selectedMealsByCategory.toString(), name: "selectedMealsByCategory");
       final selectedMealsIdx =
           selectedMealsByCategory.values.expand((list) => list).toList();
@@ -67,7 +68,8 @@ class DietMenuController extends GetxController {
         dietMenuSelectedDate,
       );
     } catch (e, stack) {
-      print(stack);
+      toast(e.toString());
+      toast(stack.toString());
       throw Exception("Error while submitting selected meal $e");
     }
   }

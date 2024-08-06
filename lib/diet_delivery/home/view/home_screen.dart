@@ -123,7 +123,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         size: size,
                         backgroundColor: kWhiteColor,
                         textColor: kPrimaryColor,
-                        text: "Subscription renewal",
+                        text: "Subscription Renewal",
                         onPressed: () => Get.to(PlanSelectionScreen()),
                       ),
                       kHeight(5),
