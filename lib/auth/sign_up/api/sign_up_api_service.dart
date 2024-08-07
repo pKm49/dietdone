@@ -80,12 +80,14 @@ class SignUpApiServices {
     }
   }
 
-  Future UpdateUserProfile(mobile, lastName, name, email) async {
+  Future UpdateUserProfile(mobile, lastName, name, email, profilePicture) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     final signUpController = Get.find<SignUpController>();
     final accessToken = await storage.read(key: "access_token");
     final profileController = Get.find<GetProfileController>();
     try {
+      print("profilePicture");
+      print(profilePicture);
       Get.dialog(
           Center(
               child: CircularProgressIndicator(
@@ -95,7 +97,13 @@ class SignUpApiServices {
       final response = await http.patch(
         Uri.parse(ApiConfig.baseUrl + ApiConfig.profile),
         headers: {"Authorization": "Bearer $accessToken"},
-        body: json.encode({
+        body:profilePicture!=null? json.encode({
+          "mobile": mobile,
+          "last_name": lastName,
+          "first_name": name,
+          "email": email,
+          "profile_picture":profilePicture
+        }):json.encode({
           "mobile": mobile,
           "last_name": lastName,
           "first_name": name,

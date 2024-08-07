@@ -41,7 +41,7 @@ class CreateSubscriptionAPiService {
       "plan_id": planController.planId,
       "plan_choice_id": subscriptionController.subscriptionId.value,
       "start_date": subscriptionController.selectedDate,
-      "promo_code": subscriptionController.couponController.text
+      "promo_code": subscriptionController.couponController.value.text
     });
 
     log(mobile, name: "mobile number");

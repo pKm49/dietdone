@@ -111,19 +111,25 @@ class _CalendarWidgetState extends State<CalendarWidget> {
     int weekdayOfFirstDay =
         DateTime(currentDate.year, currentDate.month, 1).weekday;
     int currentDay = 1;
-
+    print("weekdayOfFirstDay");
+    print(weekdayOfFirstDay);
     for (int i = 0; i < 6; i++) {
       List<Widget> week = [];
 
       for (int j = 0; j < 7; j++) {
         DateTime day;
         if (i == 0 && j < weekdayOfFirstDay - 1) {
-          int prevMonthDay =
-              DateTime(currentDate.year, currentDate.month, 0).day -
-                  weekdayOfFirstDay +
-                  j +
-                  1;
+          print("day");
+          print( DateTime(currentDate.year, currentDate.month, 1).add(Duration(days: -1)).day-
+              (DateTime(currentDate.year, currentDate.month, 1).add(Duration(days: -1)).weekday-1));
+          print( DateTime(currentDate.year, currentDate.month, 1).add(Duration(days: -1)).day-
+              (DateTime(currentDate.year, currentDate.month, 1).add(Duration(days: -1)).weekday-1)+ j);
+           int prevMonthDay =
+               DateTime(currentDate.year, currentDate.month, 1).add(Duration(days: -1)).day-
+                   (DateTime(currentDate.year, currentDate.month, 1).add(Duration(days: -1)).weekday-1)+ j ;
+           print(prevMonthDay);
           day = DateTime(currentDate.year, currentDate.month - 1, prevMonthDay);
+          print(day);
         } else if (currentDay > daysInMonth) {
           int nextMonthDay = currentDay - daysInMonth;
           day = DateTime(currentDate.year, currentDate.month + 1, nextMonthDay);

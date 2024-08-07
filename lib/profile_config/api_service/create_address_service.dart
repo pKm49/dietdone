@@ -22,11 +22,12 @@ class CreateAddressApiServices {
     try {
       final response = await http.post(Uri.parse(url),
           headers: header, body: json.encode(model));
-      log("here");
+      log("createNewAddress here");
       log(response.body);
+      log(json.encode(model));
       if (response.statusCode == 200) {
         log(response.body.toString());
-        Get.off(ProfileScreen());
+        Get.back();
       }
     } catch (e) {
       log(e.toString(), name: "error");
@@ -51,6 +52,9 @@ class CreateAddressApiServices {
       final response = await http.patch(Uri.parse(url),
           headers: header, body: json.encode(model));
       log("here");
+      log("update address here");
+      log(response.body);
+      log(json.encode(model));
       log(response.body, name: "error update address");
       Get.back();
       if (response.statusCode == 200) {

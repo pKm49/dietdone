@@ -158,7 +158,7 @@ class CheckOutScreen extends StatelessWidget {
                               child: Obx(
                                 () => TextFormField(
                                   controller:
-                                      subscriptionPlanController.couponController,
+                                      subscriptionPlanController.couponController.value,
                                   style: const TextStyle(
                                     fontSize: 20,
                                   ),

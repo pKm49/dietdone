@@ -82,7 +82,7 @@ class ProfileDIetCard extends StatelessWidget {
                           ),
                           child: Center(
                               child: Text(
-                            "$remainingDays",
+                            "${profileController.profileList.isNotEmpty?profileController.profileList[0].subscriptionEndIn:remainingDays}",
                             style: TextStyle(
                                 fontSize: 25, color: kLightPrimaryColor),
                           )),

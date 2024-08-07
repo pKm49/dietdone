@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:developer';
+import 'dart:ffi';
 import 'package:diet_diet_done/core/api/const_api_endpoints.dart';
 import 'package:diet_diet_done/core/constraints/const_colors.dart';
 import 'package:diet_diet_done/profile_config/controller/subscription_plan_controller.dart';
@@ -14,7 +15,7 @@ class CouponVerificationApiServices {
 
   Future<List<CouponModel>> verifyCoupon() async {
     final url =
-        '${ApiConfig.baseUrl}${ApiConfig.coupon}?plan_choice_id=${controller.subscriptionId}&coupon_code=${controller.couponController.text}';
+        '${ApiConfig.baseUrl}${ApiConfig.coupon}?plan_choice_id=${controller.subscriptionId}&coupon_code=${controller.couponController.value.text}';
     final accessToken = await storage.read(key: "access_token");
 
     final response = await http.get(
@@ -33,9 +34,11 @@ class CouponVerificationApiServices {
         Get.snackbar("Successful", "Coupon added successfully..",backgroundColor: kPrimaryColor, colorText: kWhiteColor);
       }
       if (message == "Invalid coupon code.") {
+        controller.updatCouponcode("");
         Get.snackbar("Invalid Coupon", "please re-check and try again",backgroundColor: kPrimaryColor, colorText: kWhiteColor);
       }
       if (error == "Coupon code not passed.") {
+        controller.updatCouponcode("");
         Get.snackbar("Enter Coupon Code", "Coupon code not passed.",backgroundColor: kPrimaryColor, colorText: kWhiteColor);
       }
       final List<dynamic> responseData = json.decode(response.body)["payload"];
@@ -44,6 +47,7 @@ class CouponVerificationApiServices {
 
       return coupons;
     } else {
+      controller.updatCouponcode("");
       throw Exception("failed to load plan categories");
     }
   }

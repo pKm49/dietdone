@@ -45,8 +45,8 @@ class CreateAddressModel {
     return {
       'mobile': mobile,
       'nickname': nickname,
-      'area': area,
-      'block': block,
+      'area_id': area,
+      'block_id': block,
       'street': street,
       'jedha': jedha,
       'house_number': houseNumber,

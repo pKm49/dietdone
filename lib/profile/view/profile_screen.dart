@@ -44,7 +44,6 @@ class ProfileScreen extends StatelessWidget {
                 ),
                 ProfileImage(
                   size: size,
-                  profileController: getProfileController,
                 ),
               ],
             ),

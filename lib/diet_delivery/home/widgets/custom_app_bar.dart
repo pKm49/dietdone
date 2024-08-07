@@ -77,6 +77,8 @@ class CustomAppBarTile extends StatelessWidget {
                         homeController: homeController,
                       )),
                       child: SvgPicture.asset(
+                        homeController.notificationList.isEmpty?
+                        "assets/icon/notification.svg":
                         "assets/icon/Notification.svg",
                         color: kWhiteColor,
                         height: 25,

@@ -45,6 +45,7 @@ class UpdateAllergiesAPiServices {
     );
     int statusCode = json.decode(response.body)["statusCode"];
     if (statusCode == 200) {
+      profileController.selectedOptions.value = [];
       log(response.body, name: "Get allergies");
       final List<dynamic> payload = jsonDecode(response.body)["payload"];
       log(payload.toString(), name: "allergies payload");

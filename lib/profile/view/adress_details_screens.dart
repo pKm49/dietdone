@@ -43,17 +43,20 @@ class AddressDetailsScreen extends StatelessWidget {
               "Address",
               style: TextStyle(fontWeight: FontWeight.w600, fontSize: 20),
             ),
-            InkWell(
-              onTap: () => Get.to(AddAddressScreen()),
-              child: Container(
-                height: 35,
-                width: 38,
-                decoration: BoxDecoration(
-                    color: kBlackColor, borderRadius: BorderRadius.circular(5)),
-                child: Icon(
-                  Icons.add,
-                  color: kWhiteColor,
-                  size: 20,
+            Visibility(
+              visible: addressController.allAddress.length<2,
+              child: InkWell(
+                onTap: () => Get.to(AddAddressScreen()),
+                child: Container(
+                  height: 35,
+                  width: 38,
+                  decoration: BoxDecoration(
+                      color: kBlackColor, borderRadius: BorderRadius.circular(5)),
+                  child: Icon(
+                    Icons.add,
+                    color: kWhiteColor,
+                    size: 20,
+                  ),
                 ),
               ),
             )

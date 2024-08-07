@@ -1,32 +1,35 @@
 import 'package:diet_diet_done/core/constraints/constraints.dart';
 import 'package:diet_diet_done/diet_delivery/home/controller/getProfileController.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class ProfileImage extends StatelessWidget {
-  const ProfileImage(
-      {super.key, required this.size, required this.profileController});
+    ProfileImage(
+      {super.key, required this.size });
 
   final Size size;
-  final GetProfileController profileController;
+  final GetProfileController profileController = Get.find<GetProfileController>();
   @override
   Widget build(BuildContext context) {
     return Positioned(
       left: size.width / 2 - 60,
       top: 90,
-      child: SizedBox(
-          height: 120,
-          width: 120,
-          child: profileController.profileList.isNotEmpty
-              ? CircleAvatar(
-                  radius: 60,
-                  backgroundImage: Image.network(
-                          profileController.profileList[0].profilePicture == ""
-                              ? profileImageNetworkLink
-                              : profileController
-                                  .profileList[0].profilePicture!)
-                      .image,
-                )
-              : CircularProgressIndicator()),
+      child: Obx(
+        ()=> SizedBox(
+            height: 120,
+            width: 120,
+            child: profileController.profileList.isNotEmpty
+                ? CircleAvatar(
+                    radius: 60,
+                    backgroundImage: Image.network(
+                            profileController.profileList[0].profilePicture == ""
+                                ? profileImageNetworkLink
+                                : profileController
+                                    .profileList[0].profilePicture!)
+                        .image,
+                  )
+                : CircularProgressIndicator()),
+      ),
     );
   }
 }

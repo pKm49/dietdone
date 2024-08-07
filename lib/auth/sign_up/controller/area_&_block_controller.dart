@@ -15,20 +15,24 @@ class AreaAndBlockController extends GetxController {
   RxBool isLoading = false.obs;
   @override
   void onInit() async {
-    await GetAreaAndBlockAPiServices().fetchArea();
-    await GetAreaAndBlockAPiServices().fetchBlock();
+    await fetchAreas();
     super.onInit();
   }
 
   Future<void> fetchAreas() async {
     isLoading = true.obs;
+    selectedBlock.value = GetBlockModel(id: -1, name: '');
+    blocks.value = [];
     try {
       final fetchedAreas = await GetAreaAndBlockAPiServices().fetchArea();
       areas.value = fetchedAreas;
-      log(areas.toString(), name: "areas list");
+      // log(areas.toString(), name: "areas list");
       selectedArea.value = fetchedAreas.isNotEmpty
           ? fetchedAreas.first
           : GetAreaModel(id: -1, name: 'testing', arabicName: '');
+
+      fetchBlocks(selectedArea.value.id,-1);
+
     } catch (e) {
       isLoading = false.obs;
 
@@ -39,16 +43,36 @@ class AreaAndBlockController extends GetxController {
     isLoading = false.obs;
   }
 
-  Future<void> fetchBlocks() async {
+  Future<void> fetchBlocks(int area, int blockId) async {
+    selectedBlock.value = GetBlockModel(id: -1, name: '');
+    blocks.value = [];
     try {
       isLoading = true.obs;
-      final fetchedBlocks = await GetAreaAndBlockAPiServices().fetchBlock();
+      final fetchedBlocks = await GetAreaAndBlockAPiServices().fetchBlock(area);
       blocks.value = fetchedBlocks;
-      log(areas.toString(), name: "block list");
+      log(blocks.toString(), name: "block list");
 
-      selectedBlock.value = fetchedBlocks.isNotEmpty
-          ? fetchedBlocks.first
-          : GetBlockModel(id: -1, name: 'testing');
+      if(blockId != -1){
+        if(blocks.where((p0) =>
+        p0.id==blockId
+        ).toList().isNotEmpty){
+          selectedBlock.value =  blocks.where((p0) =>
+          p0.id==blockId
+          ).toList()[0];
+
+        }else{
+          selectedBlock.value = fetchedBlocks.isNotEmpty
+              ? fetchedBlocks.first
+              : GetBlockModel(id: -1, name: 'testing');
+        }
+
+      }else{
+
+        selectedBlock.value = fetchedBlocks.isNotEmpty
+            ? fetchedBlocks.first
+            : GetBlockModel(id: -1, name: 'testing');
+      }
+
     } catch (e) {
       isLoading = false.obs;
       log("failed to fetch block $e");

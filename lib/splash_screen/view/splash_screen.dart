@@ -1,12 +1,17 @@
 import 'dart:async';
+import 'dart:convert';
 import 'dart:developer';
 import 'package:diet_diet_done/auth/login/api/get_access_token_service.dart';
 import 'package:diet_diet_done/auth/login/view/login_screen.dart';
 import 'package:diet_diet_done/auth/login/view/welcome_screen.dart';
+import 'package:diet_diet_done/core/api/const_api_endpoints.dart';
+import 'package:diet_diet_done/diet_delivery/home/model/get_profile_model.dart';
 import 'package:diet_diet_done/diet_delivery/home/view/bottom_navigation_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:http/http.dart' as http;
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -36,7 +41,8 @@ class _SplashScreenState extends State<SplashScreen> {
   Future<void> redirectToNextScreen() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     final hasSeenWelcomeScreen = await prefs.getBool("hasSeenWelcomeScreen");
-
+    print("redirectToNextScreen");
+    print(hasSeenWelcomeScreen);
     if (hasSeenWelcomeScreen == null || hasSeenWelcomeScreen == false) {
       Get.off(() => const WelcomeScreen());
     } else {
@@ -45,7 +51,38 @@ class _SplashScreenState extends State<SplashScreen> {
       if (mobile == null || mobile.isEmpty) {
         Get.off(() => LoginScreen());
       } else {
-        Get.off(() => BottomNavBar());
+
+        try{
+          SharedPreferences prefs = await SharedPreferences.getInstance();
+          final mobile = await prefs.getString("mobile");
+          // SharedPreferences preferences = await SharedPreferences.getInstance();
+          // signUpController.mobileNumber = preferences.getString("mobileNumber");
+          final url = "${ApiConfig.baseUrl}${ApiConfig.profile}?mobile=$mobile";
+          log(url.toString(), name: "get profile url");
+          final storage = FlutterSecureStorage();
+
+          final accessToken = await storage.read(key: "access_token");
+          final response = await http.get(
+            Uri.parse(url),
+            headers: {"Authorization": "Bearer $accessToken"},
+          );
+          print("redirectToNextScreen response");
+          print(response.statusCode);
+          print(response.body);
+          if (response.statusCode == 200) {
+            if (jsonDecode(response.body)["statusCode"] == 200) {
+              Get.off(() => BottomNavBar());
+            } else {
+              Get.offAll(LoginScreen());
+            }
+          } else {
+            Get.offAll(LoginScreen());
+          }
+
+        }catch (e){
+          Get.offAll(LoginScreen());
+
+        }
       }
     }
   }

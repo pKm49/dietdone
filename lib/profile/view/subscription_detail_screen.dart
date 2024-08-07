@@ -68,12 +68,39 @@ class SubscriptionDetailScreen extends StatelessWidget {
                                     ),
                                     child: Column(
                                       children: [
-                                        Text(
-                                          profileController
-                                              .subsHistoryList[index].plan,
-                                          style: TextStyle(
-                                              fontSize: 18,
-                                              fontWeight: FontWeight.bold),
+                                        Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Text(
+                                              profileController
+                                                  .subsHistoryList[index].plan,
+                                              style: TextStyle(
+                                                  fontSize: 18,
+                                                  fontWeight: FontWeight.bold),
+                                            ),
+
+                                            Container(
+                                              decoration: BoxDecoration(
+                                                borderRadius: BorderRadius.circular(10),
+                                                color: profileController
+                                                    .subsHistoryList[index].state=="in_progress"?Colors.green:
+                                                profileController
+                                                    .subsHistoryList[index].state=="expired"?Colors.red:Colors.black,
+                                              ),
+                                              padding: EdgeInsets.symmetric(vertical: 3,horizontal: 8),
+
+                                              child:
+                                              Text(
+                                                profileController
+                                                    .subsHistoryList[index].state=="in_progress"?"IN PROGRESS":
+                                                profileController
+                                                    .subsHistoryList[index].state.toUpperCase(),
+                                                style: TextStyle(
+                                                    fontSize: 14,
+                                                    color: kWhiteColor, ),
+                                              ),
+                                            )
+                                          ],
                                         ),
                                         Divider(
                                           color: const Color.fromARGB(

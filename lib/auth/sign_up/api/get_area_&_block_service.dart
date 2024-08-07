@@ -30,16 +30,20 @@ class GetAreaAndBlockAPiServices {
     }
   }
 
-  Future<List<GetBlockModel>> fetchBlock() async {
+  Future<List<GetBlockModel>> fetchBlock(int area) async {
     final accessToken = await storage.read(key: "access_token");
-    final url = ApiConfig.baseUrl + ApiConfig.block;
+    final url = ApiConfig.baseUrl + ApiConfig.block+"?area=$area";
 
     final response = await http
         .get(Uri.parse(url), headers: {"Authorization": "Bearer $accessToken"});
 
     if (response.statusCode == 200) {
       // log(response.body.toString());
+      // print("fetchBlock");
+      // print(url);
       final List<dynamic> responseData = json.decode(response.body)["payload"];
+      // print("fetchBlock");
+
       final List<GetBlockModel> areas =
           responseData.map((e) => GetBlockModel.fromJson(e)).toList();
       return areas;

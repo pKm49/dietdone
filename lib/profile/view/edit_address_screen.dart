@@ -23,13 +23,30 @@ class EditAddressScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    late final areaBlockController = AreaAndBlockController();
+    final areaBlockController = Get.find<AreaAndBlockController>();
     final signUpController = Get.find<SignUpController>();
     final addressController = Get.find<AddressController>();
+    print("edit address screen");
+    print(areaBlockController.areas.isNotEmpty);
+    print(addressController.addresses[index].areaId);
+    print(areaBlockController.areas.where((p0) =>
+    p0.id==addressController.addresses[index].areaId
+    ).toList());
+    if(areaBlockController.areas.isNotEmpty){
+      if(areaBlockController.areas.where((p0) =>
+      p0.id==addressController.addresses[index].areaId
+      ).toList().isNotEmpty){
+       areaBlockController.selectedArea.value =  areaBlockController.areas.where((p0) =>
+        p0.id==addressController.addresses[index].areaId
+        ).toList()[0];
+        areaBlockController.fetchBlocks(areaBlockController.selectedArea.value.id,
 
+                addressController.addresses[index].blockId
+        );
+      }
+    }
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      areaBlockController.fetchAreas();
-      areaBlockController.fetchBlocks();
+      // areaBlockController.fetchAreas();
       signUpController.areaController.text =
           addressController.addresses[index].areaName;
       signUpController.blockController.text =
@@ -46,8 +63,7 @@ class EditAddressScreen extends StatelessWidget {
           addressController.addresses[index].floorNumber;
       signUpController.commentsController.text =
           addressController.addresses[index].comments;
-
-      ;
+ ;
     });
     final theme = Theme.of(context);
     final profileConfigController = Get.find<ProfileConfigController>();
@@ -80,13 +96,14 @@ class EditAddressScreen extends StatelessWidget {
                       onChanged: (GetAreaModel? newValue) {
                         if (newValue != null) {
                           areaBlockController.selectedArea.value = newValue;
+                          areaBlockController.fetchBlocks(newValue.id,-1);
                         }
                       },
                       items: areaBlockController.areas.map((area) {
                         return DropdownMenuItem<GetAreaModel>(
                           value: area,
                           child: Text(
-                            "${area.name} - ${area.id.toString()} ",
+                            "${area.name} ",
                             style: TextStyle(fontSize: 15),
                           ),
                         );
@@ -180,14 +197,16 @@ class EditAddressScreen extends StatelessWidget {
                     theme: theme,
                     onTap: () async {
                       log("update in...........");
+                      print(areaBlockController.selectedArea.value.id.toString());
+                      print(areaBlockController.selectedBlock.value.id.toString());
                       final prefs = await SharedPreferences.getInstance();
                       final mobile = prefs.getString("mobile");
                       await CreateAddressApiServices().updateAddress({
-                        "address_id": addressController.allAddress.first.id,
+                        "address_id": addressController.allAddress[index].id,
                         "mobile": mobile,
                         "name": "home 2",
-                        "area_is": signUpController.areaId,
-                        "block": signUpController.blockName,
+                        "area_id": areaBlockController.selectedArea.value.id,
+                        "block_id": areaBlockController.selectedBlock.value.id,
                         "street": signUpController.streetController.text,
                         "jedha": signUpController.jedahController.text,
                         "house_number": signUpController.houseNumberController.text,

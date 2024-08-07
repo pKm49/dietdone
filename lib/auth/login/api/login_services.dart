@@ -48,7 +48,7 @@ class LoginApiService {
         if (statusOk && statusCode == 200) {
           await prefs.setBool("isLoggedIn", true);
           await prefs.setString("mobile", signUpController.mobileNumber!);
-          Get.to(const BottomNavBar());
+          Get.offAll(const BottomNavBar());
           // Get.to(const MealSelectionScreen());
         } else {
           await prefs.setString("mobile", "");

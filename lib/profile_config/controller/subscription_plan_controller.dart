@@ -26,7 +26,8 @@ class SubscriptionPlanController extends GetxController {
   String selectedDate = DateFormat("yyyy-MM-dd").format(DateTime.now());
   String selectedStartingDate = DateFormat("dd-MM-yyyy").format(DateTime.now());
   DateTime dateTimeNow = DateTime.now();
-  TextEditingController couponController = TextEditingController();
+  Rx<TextEditingController> couponController = TextEditingController().obs;
+
   RxList<GetSubscriptionPlanModel> subscriptionPlan =
       <GetSubscriptionPlanModel>[].obs;
   RxBool isLoading = false.obs;
@@ -50,6 +51,7 @@ class SubscriptionPlanController extends GetxController {
           .fetchSubscriptionPlan("${planCategoriesController.planId}");
       subscriptionPlan.value = plans;
     } catch (e) {
+      isLoading.value = false;
       log("Error while fetching subscription: $e");
     } finally {
       isLoading.value = false;
@@ -69,8 +71,13 @@ class SubscriptionPlanController extends GetxController {
 
     } catch (e) {
       log("Error while fetching subscription details: $e");
+      isLoading.value = false;
     } finally {
       isLoading.value = false;
     }
+  }
+
+  void updatCouponcode(String couponCode) {
+     couponController.value.text = couponCode;
   }
 }

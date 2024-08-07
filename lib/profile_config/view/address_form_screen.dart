@@ -28,7 +28,6 @@ class _AddressFormState extends State<AddressForm> {
   @override
   void initState() {
     areaBlockController.fetchAreas();
-    areaBlockController.fetchBlocks();
 
     super.initState();
   }

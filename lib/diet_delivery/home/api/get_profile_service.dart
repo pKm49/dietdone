@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:developer';
+import 'package:diet_diet_done/auth/login/view/login_screen.dart';
 import 'package:diet_diet_done/auth/sign_up/controller/sign_up_controller.dart';
 import 'package:diet_diet_done/core/api/const_api_endpoints.dart';
 import 'package:diet_diet_done/diet_delivery/home/model/get_profile_model.dart';
@@ -32,6 +33,7 @@ class GetProfileService {
           responseData.map((json) => GetProfileModel.fromJson(json)).toList();
       return profileData;
     } else {
+      Get.offAll(LoginScreen());
       throw Exception("failed to load profile data");
     }
   }

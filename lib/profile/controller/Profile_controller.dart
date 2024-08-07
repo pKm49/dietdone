@@ -16,7 +16,7 @@ class ProfileController extends GetxController {
   RxBool isLoading = false.obs;
 
   void toggleOption(AllergiesModel option) {
-    if ( selectedOptions.map((element) => element.id).toList().contains(option.id) ) {
+    if ( selectedOptions.where((element) => element.id==option.id).toList().isNotEmpty ) {
       selectedOptions.removeWhere((element) => element.id==option.id);
     } else {
       selectedOptions.add(option);

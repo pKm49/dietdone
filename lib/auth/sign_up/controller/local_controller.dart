@@ -12,7 +12,7 @@ class LocalController extends GetxController {
   RxString source = "Social media".obs;
   RxBool termsAndCondition = true.obs;
   File? selectedImage;
-  String? profileImage;
+  var profileImage = "".obs;
   void selectValue(int value) {
     selectedValueSource.value = value;
   }
@@ -81,6 +81,6 @@ class LocalController extends GetxController {
 
   imageToBase64() {
     List<int> imageBytes = selectedImage!.readAsBytesSync();
-    profileImage = base64Encode(imageBytes);
+    profileImage.value = base64Encode(imageBytes);
   }
 }

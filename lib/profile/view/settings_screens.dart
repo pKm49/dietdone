@@ -33,7 +33,7 @@ class SettingsScreen extends StatelessWidget {
               ),
               kHeight(30),
               SettingListTile(
-                svgUrl: 'assets/settings_icon/notification (1) 1.svg',
+                svgUrl: 'assets/settings_icon/notification.svg',
                 title: 'Notification',
                 onTap: () async {
                   try {

@@ -21,7 +21,6 @@ class AddAddressScreen extends StatelessWidget {
     late final areaBlockController = AreaAndBlockController();
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       areaBlockController.fetchAreas();
-      areaBlockController.fetchBlocks();
     });
     final addressController = Get.find<AddressController>();
     final theme = Theme.of(context);
@@ -55,13 +54,14 @@ class AddAddressScreen extends StatelessWidget {
                       onChanged: (GetAreaModel? newValue) {
                         if (newValue != null) {
                           areaBlockController.selectedArea.value = newValue;
+                          areaBlockController.fetchBlocks(newValue.id,-1);
                         }
                       },
                       items: areaBlockController.areas.map((area) {
                         return DropdownMenuItem<GetAreaModel>(
                           value: area,
                           child: Text(
-                            "${area.name} - ${area.id.toString()} ",
+                            "${area.name}} ",
                             style: TextStyle(fontSize: 15),
                           ),
                         );

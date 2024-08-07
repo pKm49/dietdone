@@ -55,6 +55,7 @@ class SubmitSelectedMealApiService {
         Get.back();
         log(response.body, name: "submit selected meal");
         dietMenuController.mealCategoryIdx.clear();
+        dietMenuController.selectedCalories.value = 0.0;
         Get.snackbar("Order confirmed..", "Selected Meals",backgroundColor: kPrimaryColor, colorText: kWhiteColor);
       }
     }catch(e,st){

@@ -30,16 +30,8 @@ class PaymentGatewayWebviewState extends State<PaymentGatewayWebview> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        body: Column(
+        body: Stack(
           children: [
-            Visibility(
-              visible: _progress<1,
-              child: Container(
-                child: LinearProgressIndicator(
-                  value: _progress,
-                ),
-              ),
-            ),
             InAppWebView(
               initialUrlRequest: URLRequest(
                   url: WebUri(subscriptionPlanController.transactionUrl.value)),
@@ -61,15 +53,21 @@ class PaymentGatewayWebviewState extends State<PaymentGatewayWebview> {
                 if (uri.toString() ==
                     "${ApiConfig.baseUrl}/subscription/payment/status") {
                   print("reached back condition");
-                    Get.back();
-                    return NavigationActionPolicy.CANCEL;
+                  Get.back();
+                  return NavigationActionPolicy.CANCEL;
                 }else{
-                    return NavigationActionPolicy.ALLOW;
+                  return NavigationActionPolicy.ALLOW;
                 }
 
               },
             ),
-
+            _progress < 1
+                ? Container(
+              child: LinearProgressIndicator(
+                value: _progress,
+              ),
+            )
+                : SizedBox()
           ],
         ),
       ),

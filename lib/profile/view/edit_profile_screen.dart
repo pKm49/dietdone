@@ -1,9 +1,12 @@
+import 'dart:convert';
+
 import 'package:diet_diet_done/auth/sign_up/controller/local_controller.dart';
 import 'package:diet_diet_done/auth/sign_up/controller/sign_up_controller.dart';
 import 'package:diet_diet_done/core/constraints/constraints.dart';
 import 'package:diet_diet_done/diet_delivery/home/controller/getProfileController.dart';
 import 'package:diet_diet_done/widget/custom_app_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -11,7 +14,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 class EditProfileScreen extends StatefulWidget {
   EditProfileScreen({super.key, required this.profileController});
   final GetProfileController profileController;
-  final signUpLocalController = Get.find<LocalController>();
   @override
   State<EditProfileScreen> createState() => _EditProfileScreenState();
 }
@@ -19,6 +21,7 @@ class EditProfileScreen extends StatefulWidget {
 class _EditProfileScreenState extends State<EditProfileScreen> {
   String? mobile;
   final signUpController = Get.find<SignUpController>();
+  final signUpLocalController = Get.find<LocalController>();
 
   @override
   void initState() {
@@ -29,9 +32,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 
   // @override
   // void dispose() async {
-  //   if (widget.signUpLocalController.selectedImage != null) {
+  //   if (signUpLocalController.selectedImage != null) {
   //     log("disposing.. selecting image");
-  //     await widget.signUpLocalController.selectedImage!.delete();
+  //     await signUpLocalController.selectedImage!.delete();
   //     log("disposed.. selecting image");
   //   }
 
@@ -55,9 +58,40 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
           () => Column(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              ProfileImage(
-                profileController: widget.profileController,
-                singUpLocalController: widget.signUpLocalController,
+              Stack(
+                children: [
+                  SizedBox(
+                    height: 120,
+                    width: 120,
+                    child: CircleAvatar(
+                        radius: 60,
+                        backgroundImage:
+                        signUpLocalController.profileImage == ""
+                            ? Image.network(widget.profileController.profileList[0]
+                            .profilePicture ==
+                            ""
+                            ? profileImageNetworkLink
+                            : widget.profileController.profileList[0]
+                            .profilePicture!)
+                            .image
+                            : Image.memory(base64Decode(signUpLocalController.profileImage.value))
+                            .image),
+                  ),
+                  Positioned(
+                    right: 0,
+                    bottom: 0,
+                    child: InkWell(
+                      onTap: () async {
+                        await signUpLocalController.pickImageFromGallery();
+                        signUpLocalController.imageToBase64();
+                      },
+                      child: SvgPicture.asset(
+                        "assets/profile_icon/Profile.svg",
+                        height: 25,
+                      ),
+                    ),
+                  )
+                ],
               ),
               Column(
                 children: [
@@ -99,11 +133,24 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               kHeight(size.height * 0.1),
               ElevatedButton(
                   onPressed: () async {
-                    signUpController.updateUserProfile(
-                        widget.profileController.profileList[0].mobile,
-                        signUpController.englishLastName.text,
-                        signUpController.englishFirstName.text,
-                        signUpController.emailController.text);
+                    if(signUpLocalController.selectedImage != null){
+                      Uint8List imageBytes = signUpLocalController.selectedImage!.readAsBytesSync();
+
+                      signUpController.updateUserProfile(
+                          widget.profileController.profileList[0].mobile,
+                          signUpController.englishLastName.text,
+                          signUpController.englishFirstName.text,
+                          signUpController.emailController.text,base64Encode(imageBytes));
+                    }else{
+
+
+                      signUpController.updateUserProfile(
+                          widget.profileController.profileList[0].mobile,
+                          signUpController.englishLastName.text,
+                          signUpController.englishFirstName.text,
+                          signUpController.emailController.text,null);
+                    }
+
                   },
                   child: Text(
                     "Done",
@@ -132,60 +179,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         widget.profileController.profileList[0].firstName;
     signUpController.englishLastName.text =
         widget.profileController.profileList[0].lastName;
-  }
-}
-
-class ProfileImage extends StatefulWidget {
-  const ProfileImage({
-    super.key,
-    required this.profileController,
-    required this.singUpLocalController,
-  });
-  final GetProfileController profileController;
-  final LocalController singUpLocalController;
-
-  @override
-  State<ProfileImage> createState() => _ProfileImageState();
-}
-
-class _ProfileImageState extends State<ProfileImage> {
-  @override
-  Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        SizedBox(
-          height: 120,
-          width: 120,
-          child: CircleAvatar(
-              radius: 60,
-              backgroundImage:
-                  widget.singUpLocalController.selectedImage == null
-                      ? Image.network(widget.profileController.profileList[0]
-                                      .profilePicture ==
-                                  ""
-                              ? profileImageNetworkLink
-                              : widget.profileController.profileList[0]
-                                  .profilePicture!)
-                          .image
-                      : Image.file(widget.singUpLocalController.selectedImage!)
-                          .image),
-        ),
-        Positioned(
-          right: 0,
-          bottom: 0,
-          child: InkWell(
-            onTap: () async {
-              await widget.singUpLocalController.pickImageFromGallery();
-              widget.singUpLocalController.imageToBase64();
-            },
-            child: SvgPicture.asset(
-              "assets/profile_icon/Profile.svg",
-              height: 25,
-            ),
-          ),
-        )
-      ],
-    );
   }
 }
 
