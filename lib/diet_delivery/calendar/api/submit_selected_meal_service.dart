@@ -32,19 +32,26 @@ class SubmitSelectedMealApiService {
 
       final accessToken = await storage.read(key: "access_token");
       final formatSelectedDate = DateFormat("yyyy-MM-dd").format(selectedDate);
-
-      List<Map<String, List<int>>> mealConfig = [];
+      print( "meal submitting pre data");
+      print(mealCategoryId.toString());
+      print(mealIdx.toString());
+      print(formatSelectedDate);
+      Map<String, List<int>> mealConfig = {};
+      List<Map<String, List<int>>> mealConfigList = [];
       for (int i = 0; i < mealCategoryId.length; i++) {
-        mealConfig.add({mealCategoryId[i].toString(): mealIdx[i]});
+        mealConfig.addAll({mealCategoryId[i].toString(): mealIdx[i]});
       }
-      log(mealConfig.toString(), name: "meal submitting map");
+      mealConfigList.add(mealConfig);
+      print( "meal submitting map");
+      print(mealConfig.toString());
+      print([mealConfig]);
       final response = await http.patch(
         Uri.parse(url),
         headers: {"Authorization": "Bearer $accessToken"},
         body: json.encode({
           "subscription_id": subId,
           "date": formatSelectedDate,
-          "meal_config": mealConfig,
+          "meal_config": mealConfigList,
         }),
       );
 

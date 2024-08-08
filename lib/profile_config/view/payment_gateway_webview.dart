@@ -30,44 +30,48 @@ class PaymentGatewayWebviewState extends State<PaymentGatewayWebview> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        body: Stack(
+        body: Column(
           children: [
-            InAppWebView(
-              initialUrlRequest: URLRequest(
-                  url: WebUri(subscriptionPlanController.transactionUrl.value)),
-              onReceivedServerTrustAuthRequest: (controller, challenge) async {
-                return ServerTrustAuthResponse(
-                    action: ServerTrustAuthResponseAction.PROCEED);
-              },
-              onWebViewCreated: (controller) {
-                inAppWebViewController = controller;
-              },
-              onProgressChanged: (controller, progress) {
-                setState(() {
-                  _progress = progress / 100;
-                });
-              },
-              shouldOverrideUrlLoading: (controller, navigationAction) async {
-                final uri = navigationAction.request.url;
-
-                if (uri.toString() ==
-                    "${ApiConfig.baseUrl}/subscription/payment/status") {
-                  print("reached back condition");
-                  Get.back();
-                  return NavigationActionPolicy.CANCEL;
-                }else{
-                  return NavigationActionPolicy.ALLOW;
-                }
-
-              },
-            ),
-            _progress < 1
-                ? Container(
-              child: LinearProgressIndicator(
-                value: _progress,
+            Visibility(
+              visible: _progress < 1,
+              child: Container(
+                child: LinearProgressIndicator(
+                  value: _progress,
+                ),
               ),
-            )
-                : SizedBox()
+            ),
+            Expanded(
+              child: InAppWebView(
+                initialUrlRequest: URLRequest(
+                    url: WebUri(subscriptionPlanController.transactionUrl.value)),
+                onReceivedServerTrustAuthRequest: (controller, challenge) async {
+                  return ServerTrustAuthResponse(
+                      action: ServerTrustAuthResponseAction.PROCEED);
+                },
+                onWebViewCreated: (controller) {
+                  inAppWebViewController = controller;
+                },
+                onProgressChanged: (controller, progress) {
+                  setState(() {
+                    _progress = progress / 100;
+                  });
+                },
+                shouldOverrideUrlLoading: (controller, navigationAction) async {
+                  final uri = navigationAction.request.url;
+
+                  if (uri.toString() ==
+                      "${ApiConfig.baseUrl}/subscription/payment/status") {
+                    print("reached back condition");
+                    Get.back();
+                    return NavigationActionPolicy.CANCEL;
+                  }else{
+                    return NavigationActionPolicy.ALLOW;
+                  }
+
+                },
+              ),
+            ),
+
           ],
         ),
       ),

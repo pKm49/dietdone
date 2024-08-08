@@ -112,7 +112,7 @@ class _CalendarWidgetState extends State<CalendarWidget> {
                   onTap: () {
                     setState(() {
                       calendarController.selectedDate.value = day;
-                      dietController.dietMenuSelectedDate = day;
+                      dietController.dietMenuSelectedDate.value = day;
                     });
                   },
                   child: Container(

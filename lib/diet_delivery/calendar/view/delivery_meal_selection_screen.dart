@@ -9,153 +9,168 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class MealSelectionScreen2 extends StatelessWidget {
-  const MealSelectionScreen2({super.key});
+    MealSelectionScreen2({super.key});
+  final dietMenuController = Get.find<DietMenuController>();
 
   @override
   Widget build(BuildContext context) {
-    final dietMenuController = Get.find<DietMenuController>();
     final theme = Theme.of(context);
     final size = MediaQuery.of(context).size;
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      dietMenuController.fetchDietMeals();
+      dietMenuController.fetchDietMeals(dietMenuController.dietMenuSelectedDate.value);
     });
-    return Scaffold(
-      bottomNavigationBar: MealSelectionBottomContainer(
-        size: size,
-        theme: theme,
-        calories:
-            dietMenuController.dietMenuLists[0].subscriptionRecommendedCalories,
-        dietMenuController: dietMenuController,
-      ),
-      body: Padding(
-        padding: const EdgeInsets.only(left: 15, right: 10),
-        child: SafeArea(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                height: 70,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    AppBarBackButton(),
-                    kWidth(1),
-                    Text(
-                      "Select Meal",
-                      style:
-                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+    return Obx(
+          ()=> Scaffold(
+        bottomNavigationBar:!dietMenuController.isLoading.value? MealSelectionBottomContainer(
+          size: size,
+          theme: theme,
+          calories:
+              dietMenuController.dietMenuLists[0].subscriptionRecommendedCalories,
+          dietMenuController: dietMenuController,
+        ):null,
+        body:  Padding(
+            padding: const EdgeInsets.only(left: 15, right: 10),
+            child: SafeArea(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                    height: 70,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        AppBarBackButton(),
+                        kWidth(1),
+                        Text(
+                          "Select Meal",
+                          style:
+                              TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                        ),
+                        TextButton.icon(
+                            onPressed: () async {
+                              await Get.to(CalendarFreezeScreen());
+                            },
+                            icon: Icon(Icons.pause_circle_outline,
+                                color: kPrimaryColor),
+                            label: Text(
+                              "Pause",
+                              style: TextStyle(color: kPrimaryColor),
+                            ))
+                      ],
                     ),
-                    TextButton.icon(
-                        onPressed: () async {
-                          await Get.to(CalendarFreezeScreen());
-                        },
-                        icon: Icon(Icons.pause_circle_outline,
-                            color: kPrimaryColor),
-                        label: Text(
-                          "Pause",
-                          style: TextStyle(color: kPrimaryColor),
-                        ))
-                  ],
-                ),
-              ),
-              WeekBasedCalendar(),
-              GetBuilder<DietMenuController>(
-                builder: (controller) => dietMenuController
-                        .dietMenuLists[0].meals.isEmpty
-                    ? Center(
-                        child: Column(
-                        children: [
-                          Icon(
-                            Icons.food_bank_outlined,
-                            size: 30,
-                          ),
-                          Text(
-                            "There is no meals found!...",
-                            style: TextStyle(
-                                fontSize: 15, fontWeight: FontWeight.bold),
-                          ),
-                        ],
-                      ))
-                    : controller.dietMenuLists.isEmpty
-                        ? Center(
-                            child: CircularProgressIndicator(),
-                          )
-                        : Expanded(
-                            child: ListView.builder(
-                              itemCount: dietMenuController
-                                  .dietMenuLists[0].meals.length,
-                              itemBuilder: (context, listIdx) {
-                                return Column(
-                                  children: [
-                                    MealNameAndItemCountWidget(
-                                      size: size,
-                                      dietMenuController: dietMenuController,
-                                      theme: theme,
-                                      name: controller
-                                          .dietMenuLists[0].meals[listIdx].name,
-                                      itemCount: controller.dietMenuLists[0]
-                                          .meals[listIdx].itemCount,
-                                      categoryIdx:
-                                          listIdx, // Pass category index
-                                    ),
-                                    kHeight(10),
-                                    GridView.builder(
-                                      shrinkWrap: true,
-                                      physics: NeverScrollableScrollPhysics(),
-                                      itemCount: dietMenuController
-                                          .dietMenuLists[0]
-                                          .meals[listIdx]
-                                          .items
-                                          .length,
-                                      gridDelegate:
-                                          SliverGridDelegateWithFixedCrossAxisCount(
-                                              crossAxisCount: 2,
-                                              mainAxisSpacing: 20,
-                                              mainAxisExtent:
-                                                  size.height * 0.3),
-                                      itemBuilder: (context, index) {
-                                        return DietCustomMenuCard(
-                                          listIdx: listIdx,
-                                          index: index,
-                                          size: size,
-                                          dietMenuController:
-                                              dietMenuController,
-                                          onTap: () {
-                                            final mealId = dietMenuController
+                  ),
+                  WeekBasedCalendar(),
+                  Visibility(
+                    visible: !dietMenuController.isLoading.value,
+                    child: GetBuilder<DietMenuController>(
+                      builder: (controller) => dietMenuController
+                              .dietMenuLists[0].meals.isEmpty
+                          ? Center(
+                              child: Column(
+                              children: [
+                                Icon(
+                                  Icons.food_bank_outlined,
+                                  size: 30,
+                                ),
+                                Text(
+                                  "There is no meals found!...",
+                                  style: TextStyle(
+                                      fontSize: 15, fontWeight: FontWeight.bold),
+                                ),
+                              ],
+                            ))
+                          : controller.dietMenuLists.isEmpty
+                              ? Center(
+                                  child: CircularProgressIndicator(),
+                                )
+                              : Expanded(
+                                  child: ListView.builder(
+                                    itemCount: dietMenuController
+                                        .dietMenuLists[0].meals.length,
+                                    itemBuilder: (context, listIdx) {
+                                      return Column(
+                                        children: [
+                                          MealNameAndItemCountWidget(
+                                            size: size,
+                                            dietMenuController: dietMenuController,
+                                            theme: theme,
+                                            name: controller
+                                                .dietMenuLists[0].meals[listIdx].name,
+                                            itemCount: controller.dietMenuLists[0]
+                                                .meals[listIdx].itemCount,
+                                            categoryIdx:
+                                                listIdx, // Pass category index
+                                          ),
+                                          kHeight(10),
+                                          GridView.builder(
+                                            shrinkWrap: true,
+                                            physics: NeverScrollableScrollPhysics(),
+                                            itemCount: dietMenuController
                                                 .dietMenuLists[0]
                                                 .meals[listIdx]
-                                                .items[index]
-                                                .id;
+                                                .items
+                                                .length,
+                                            gridDelegate:
+                                                SliverGridDelegateWithFixedCrossAxisCount(
+                                                    crossAxisCount: 2,
+                                                    mainAxisSpacing: 20,
+                                                    mainAxisExtent:
+                                                        size.height * 0.3),
+                                            itemBuilder: (context, index) {
+                                              return DietCustomMenuCard(
+                                                listIdx: listIdx,
+                                                index: index,
+                                                size: size,
+                                                dietMenuController:
+                                                    dietMenuController,
+                                                onTap: () {
+                                                  final mealId = dietMenuController
+                                                      .dietMenuLists[0]
+                                                      .meals[listIdx]
+                                                      .items[index]
+                                                      .id;
 
-                                            final mealName = dietMenuController
-                                                .dietMenuLists[0]
-                                                .meals[listIdx]
-                                                .items[index]
-                                                .name;
-                                            final itemCount = dietMenuController
-                                                .dietMenuLists[0]
-                                                .meals[listIdx]
-                                                .itemCount;
-                                            dietMenuController
-                                                .toggleMealSelection(
-                                                    mealId,
-                                                    mealName,
-                                                    itemCount,
-                                                    mealId);
-                                          },
-                                        );
-                                      },
-                                    ),
-                                    kHeight(25)
-                                  ],
-                                );
-                              },
-                            ),
-                          ),
+                                                  final mealName = dietMenuController
+                                                      .dietMenuLists[0]
+                                                      .meals[listIdx]
+                                                      .items[index]
+                                                      .name;
+                                                  final itemCount = dietMenuController
+                                                      .dietMenuLists[0]
+                                                      .meals[listIdx]
+                                                      .itemCount;
+                                                  dietMenuController
+                                                      .toggleMealSelection(
+                                                          mealId,
+                                                          mealName,
+                                                          itemCount,
+                                                      listIdx);
+                                                },
+                                              );
+                                            },
+                                          ),
+                                          kHeight(25)
+                                        ],
+                                      );
+                                    },
+                                  ),
+                                ),
+                    ),
+                  ),
+                  Visibility(
+                      visible:  dietMenuController.isLoading.value,
+                      child: Expanded(
+                    child: Center(
+                      child: CircularProgressIndicator(
+                        color: kPrimaryColor,
+                      ),
+                    ),
+                  ))
+                ],
               ),
-            ],
+            ),
           ),
-        ),
+
       ),
     );
   }

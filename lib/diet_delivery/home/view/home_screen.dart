@@ -52,7 +52,7 @@ class _HomeScreenState extends State<HomeScreen> {
       GetCalendarDatesApiService().getCalendarDates(),
       homeScreenController.fetchNotification(),
       ShowMenuApiService().showMenu(),
-      calendarController.fetchDietMeals(),
+      calendarController.fetchDietMeals(calendarController.dietMenuSelectedDate.value),
       GetSupportNumberApiService().getSupportNumber(),
       passDeviceTokenToBackEnd.sendDeviceToken(),
     ]);

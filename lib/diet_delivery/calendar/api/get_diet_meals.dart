@@ -12,23 +12,27 @@ class GetDietMealsAPiService {
   final storage = FlutterSecureStorage();
   final dietMealsController = Get.find<DietMenuController>();
 
-  Future<List<DietMealsModel>> fetchDietMeal() async {
+  Future<List<DietMealsModel>> fetchDietMeal(String date) async {
     final preference = await SharedPreferences.getInstance();
     final mobile = preference.getString("mobile");
     if (mobile == null) {
       throw Exception("Mobile number not found in shared preferences");
     }
-    final url = ApiConfig.baseUrl + ApiConfig.dietMeal + mobile;
+    final url = ApiConfig.baseUrl + ApiConfig.dietMeal + mobile+"?date=$date";
     final accessToken = await storage.read(key: "access_token");
 
     final response = await http.get(
       Uri.parse(url),
       headers: {"Authorization": "Bearer $accessToken"},
     );
-
+    print("GetDietMealsAPiService");
+    print(date);
+    print(response.statusCode);
+    print(response.body);
     if (response.statusCode == 200) {
       final List<dynamic> responsePayload =
           jsonDecode(response.body)["payload"];
+      print(responsePayload);
       return responsePayload.map((e) => DietMealsModel.fromJson(e)).toList();
     } else {
       log("Error response status: ${response.statusCode}, body: ${response.body}");

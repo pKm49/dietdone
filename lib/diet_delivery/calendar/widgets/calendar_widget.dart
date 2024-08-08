@@ -158,7 +158,7 @@ class _CalendarWidgetState extends State<CalendarWidget> {
                 } else {
                   setState(() {
                     selectedDate = day;
-                    dietMenuController.dietMenuSelectedDate = day;
+                    dietMenuController.dietMenuSelectedDate.value = day;
                     dietMenuController.update();
                     Get.to(MealSelectionScreen2());
                   });

@@ -66,6 +66,7 @@ class Item {
   int id;
   String name;
   dynamic arabicName;
+  bool isSelected;
   bool description;
   bool arabicDescription;
   String image;
@@ -78,6 +79,7 @@ class Item {
     required this.description,
     required this.arabicDescription,
     required this.image,
+    required this.isSelected,
     required this.calories,
   });
 
@@ -93,6 +95,7 @@ class Item {
         arabicDescription: json["arabic_description"],
         image: json["image"],
         calories: json["calories"],
+    isSelected: json["is_selected"]??false,
       );
 
   Map<String, dynamic> toJson() => {

@@ -48,8 +48,8 @@ class GetProfileModel {
         mobile: json["mobile"],
         email: json["email"],
         profilePicture: json["profile_picture"],
-        subscriptionEndDate: json["subscription_end_date"],
-        subscriptionEndIn: json["subscription_end_in"],
+        subscriptionEndDate: json["subscription_end_date"]??"",
+        subscriptionEndIn: json["subscription_end_in"]??"",
       );
 
   Map<String, dynamic> toJson() => {

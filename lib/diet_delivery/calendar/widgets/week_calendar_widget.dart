@@ -15,7 +15,7 @@ class WeekBasedCalendar extends StatefulWidget {
 class _WeekBasedCalendarState extends State<WeekBasedCalendar> {
   late PageController _pageController;
   DateTime _currentDate = DateTime.now();
-  DateTime? _selectedDate;
+
   final calendarController = Get.find<CalendarController>();
   final dietMenuController = Get.find<DietMenuController>();
 
@@ -23,21 +23,20 @@ class _WeekBasedCalendarState extends State<WeekBasedCalendar> {
   void initState() {
     super.initState();
 
-    _selectedDate = dietMenuController.dietMenuSelectedDate ?? _currentDate;
 
     // Calculate the initial page based on the selected date
     int initialPage =
-        (_selectedDate!.difference(_currentDate).inDays / 7).floor();
+        (dietMenuController.dietMenuSelectedDate.value.difference(_currentDate).inDays / 7).floor();
     _pageController = PageController(initialPage: initialPage);
   }
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        _buildCalendar(),
-      ],
-    );
+    return   Column(
+        children: [
+          _buildCalendar(),
+        ],
+      );
   }
 
   Widget _buildCalendar() {
@@ -67,8 +66,8 @@ class _WeekBasedCalendarState extends State<WeekBasedCalendar> {
   }
 
   Widget _buildDay(DateTime date) {
-    bool isSelected = _selectedDate != null &&
-        DateFormat('yyyy-MM-dd').format(_selectedDate!) ==
+    bool isSelected =
+        DateFormat('yyyy-MM-dd').format(dietMenuController.dietMenuSelectedDate.value) ==
             DateFormat('yyyy-MM-dd').format(date);
 
     String formattedDate = DateFormat('yyyy-MM-dd').format(date);
@@ -108,6 +107,8 @@ class _WeekBasedCalendarState extends State<WeekBasedCalendar> {
                   ),
                 ),
                 if (dayStatus == "delivered")
+                  Icon(Icons.fastfood, size: 12, color: Colors.green),
+                if (dayStatus == "meal-selected")
                   Icon(Icons.check, size: 12, color: Colors.green),
                 if (dayStatus == "meal-not-selected")
                   SvgPicture.asset("assets/icon/Select.svg",
@@ -136,7 +137,9 @@ class _WeekBasedCalendarState extends State<WeekBasedCalendar> {
         toast("Subscription Not Active");
       } else {
         setState(() {
-          _selectedDate = date;
+          dietMenuController.dietMenuSelectedDate.value = date;
+          dietMenuController.fetchDietMeals(date);
+
         });
       }
     }else{

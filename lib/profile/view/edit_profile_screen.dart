@@ -50,7 +50,11 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        title: const AppBarBackButton(),
+        title: Row(
+          children: [
+            const AppBarBackButton()
+          ],
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20),
