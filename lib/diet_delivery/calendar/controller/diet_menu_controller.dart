@@ -69,7 +69,7 @@ class DietMenuController extends GetxController {
         subscriptionPlanController.subscriptionDetails[0].subscriptionId,
         mealCategoryIdx,
         selectedMealsByCategory.values.toList(),
-        dietMenuSelectedDate,
+        dietMenuSelectedDate.value,
       );
     } catch (e, stack) {
       toast(e.toString());
@@ -140,22 +140,19 @@ class DietMenuController extends GetxController {
       mealCategoryIdx.add (dietMenuLists[0].meals[i].id);
 
     }
-    print("mealCategoryIdx");
-    print(mealCategoryIdx.toString());
-    selectedMealsByCategory.forEach((categoryId, mealIds) {
-      print("selectedMealsByCategory data 1");
-      print(categoryId);
-      print(mealIds);
 
-    });
     for(var i=0; i<dietMenuLists.length;i++){
       for(var j=0; j<dietMenuLists[i].meals.length;j++){
-        if(dietMenuLists[i].meals[j].items[0].isSelected){
-          print("toggleMealSelection called");
-          toggleMealSelection(dietMenuLists[i].meals[j].items[0].id,
-              dietMenuLists[i].meals[j].items[0].name,
-              dietMenuLists[i].meals[j].itemCount,
-              j);
+        for(var k=0; k<dietMenuLists[i].meals[j].items.length ;k++){
+          print("meal data");
+          print(dietMenuLists[i].meals[j].items[k].isSelected);
+          if(dietMenuLists[i].meals[j].items[k].isSelected){
+            print("toggleMealSelection called");
+            toggleMealSelection(dietMenuLists[i].meals[j].items[k].id,
+                dietMenuLists[i].meals[j].items[k].name,
+                dietMenuLists[i].meals[j].itemCount,
+                j);
+          }
         }
       }
     }
