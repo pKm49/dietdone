@@ -17,7 +17,7 @@ class SubmitSelectedMealApiService {
   final dietMenuController = Get.find<DietMenuController>();
 
   Future submitSelectedMeal(
-      int subId, List mealCategoryId, List mealIdx, selectedDate) async {
+      int subId, List mealCategoryId, List mealIdx,DateTime selectedDate) async {
     try{
       toast("submitSelectedMeal api triggered");
 
