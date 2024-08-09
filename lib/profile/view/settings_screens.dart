@@ -1,4 +1,5 @@
 import 'package:app_settings/app_settings.dart';
+import 'package:diet_diet_done/auth/login/view/create_new_pass_screen.dart';
 import 'package:diet_diet_done/auth/login/view/forgot_pass_screen.dart';
 import 'package:diet_diet_done/auth/sign_up/view/terms_condition_screen.dart';
 import 'package:diet_diet_done/core/constraints/const_colors.dart';
@@ -52,7 +53,7 @@ class SettingsScreen extends StatelessWidget {
               SettingListTile(
                 svgUrl: 'assets/settings_icon/password (1) 1.svg',
                 title: 'Change Password',
-                onTap: () => Get.to(ForgotPassScreen()),
+                onTap: () => Get.to(CreateNewPassScreen()),
               ),
             ],
           ),

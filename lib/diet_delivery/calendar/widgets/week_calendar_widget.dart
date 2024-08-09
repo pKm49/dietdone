@@ -23,7 +23,6 @@ class _WeekBasedCalendarState extends State<WeekBasedCalendar> {
   void initState() {
     super.initState();
 
-
     // Calculate the initial page based on the selected date
     int initialPage =
         (dietMenuController.dietMenuSelectedDate.value.difference(_currentDate).inDays / 7).floor();
@@ -86,7 +85,7 @@ class _WeekBasedCalendarState extends State<WeekBasedCalendar> {
                 fontWeight: FontWeight.w500, color: kLightPrimaryColor),
           ),
           Container(
-            width: 30,
+            width: 40,
             height: 50,
             padding: EdgeInsets.all(5),
             decoration: BoxDecoration(

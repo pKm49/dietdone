@@ -29,7 +29,7 @@ class ForgotPasswordOtpScreen extends StatelessWidget {
             ),
             kHeight(10),
             const Text(
-                "Enter the verification code we just sent on your email address."),
+                "Enter the verification code we just sent on your phone number"),
             kHeight(50),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -74,7 +74,11 @@ class ForgotPasswordOtpScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 const Text("Didn't received code?"),
-                TextButton(onPressed: () {}, child: const Text("Resend"))
+                TextButton(onPressed: () async {
+                  await ResetPasswordApiService().sendOtp(false);
+                }, child: InkWell(
+
+                    child: const Text("Resend")))
               ],
             )
           ],

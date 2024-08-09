@@ -17,7 +17,7 @@ import 'package:overlay_support/overlay_support.dart';
 class ResetPasswordApiService {
   final storage = const FlutterSecureStorage();
   final signUpController = Get.find<SignUpController>();
-  Future sendOtp() async {
+  Future sendOtp(bool isNavigation) async {
     final accessToken = await storage.read(key: "access_token");
     String url = "${ApiConfig.baseUrl}${ApiConfig.sendOtp}";
 
@@ -32,13 +32,19 @@ class ResetPasswordApiService {
     final statusCode = jsonDecode(response.body)["statusCode"];
     final message = jsonDecode(response.body)["message"];
     final errorMessage = jsonDecode(response.body)["error"];
-    log(message, name: "reset password");
-    toast(statusCode.toString());
-    toast(errorMessage);
+    print( "reset password");
+    print(message );
+    print(statusCode.toString());
+    print(errorMessage);
     if (statusCode == 200) {
       Get.back();
-      Get.to(ForgotPasswordOtpScreen(
-      ));
+      if(isNavigation){
+        Get.to(ForgotPasswordOtpScreen(
+        ));
+      }
+      Get.snackbar("OTP sent",
+          "Please check your device for SMS containing the OTP",
+          backgroundColor: Colors.green, colorText: kWhiteColor);
     } else {
       Get.back();
       Get.snackbar("Phone number is not valid",
@@ -65,7 +71,11 @@ class ResetPasswordApiService {
       Get.back();
       Get.to(CreateNewPassScreen());
     } else {
-      toast(errorMessage);
+      Get.back();
+      // toast(errorMessage);
+      Get.snackbar("OTP is not valid",
+          "Please make sure that the submitted otp is same as in the sms recieved",
+          backgroundColor: kPrimaryColor, colorText: kWhiteColor);
       log("Failed to reset password. status code: ${response.statusCode}${response.body}");
     }
   }

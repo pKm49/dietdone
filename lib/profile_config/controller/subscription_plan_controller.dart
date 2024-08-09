@@ -24,7 +24,7 @@ class SubscriptionPlanController extends GetxController {
   RxList<SubscriptionDetailsModel> subscriptionDetails =
       <SubscriptionDetailsModel>[].obs;
   String selectedDate = DateFormat("yyyy-MM-dd").format(DateTime.now());
-  String selectedStartingDate = DateFormat("dd-MM-yyyy").format(DateTime.now());
+  String selectedStartingDate = DateFormat("dd-MM-yyyy").format(DateTime.now().add(Duration(days: 2)));
   DateTime dateTimeNow = DateTime.now();
   Rx<TextEditingController> couponController = TextEditingController().obs;
 

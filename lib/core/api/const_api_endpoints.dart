@@ -7,7 +7,6 @@ class ApiConfig {
   static String sendOtp = "/send_otp";
   static String verifyOtp = "/verify_otp";
   static String resetPassword = "/reset_password";
-  static String createAddress = "/api/add_customer_address";
   static String address = "/address";
   static String planCategories = "/plan";
   static String profile = "/profile";

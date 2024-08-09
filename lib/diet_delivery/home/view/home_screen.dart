@@ -38,7 +38,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Future<void> _initializeData() async {
-    checkNotificationsPermission();
+    // checkNotificationsPermission();
     final PassDeviceTokenToBackEnd passDeviceTokenToBackEnd =
         PassDeviceTokenToBackEnd();
     final getProfileController = Get.find<GetProfileController>();
@@ -123,7 +123,8 @@ class _HomeScreenState extends State<HomeScreen> {
                         size: size,
                         backgroundColor: kWhiteColor,
                         textColor: kPrimaryColor,
-                        text: "Subscription Renewal",
+                        text:subscriptionController.subscriptionDetails.where((p0) => p0.subscriptionStatus=='in_progress').toList().isEmpty?
+                        "Activate Subscription":"Subscription Renewal",
                         onPressed: () => Get.to(PlanSelectionScreen()),
                       ),
                       kHeight(5),

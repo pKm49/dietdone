@@ -91,7 +91,7 @@ class ForgotPassScreen extends StatelessWidget {
             ElevatedButton(
                 onPressed: () async {
                   FocusManager.instance.primaryFocus?.unfocus();
-                  await ResetPasswordApiService().sendOtp();
+                  await ResetPasswordApiService().sendOtp(true);
                 },
                 style: ElevatedButton.styleFrom(backgroundColor: kBlackColor),
                 child: Text(

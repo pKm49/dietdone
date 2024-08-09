@@ -64,11 +64,14 @@ class CalendarWidget extends StatefulWidget {
 }
 
 class _CalendarWidgetState extends State<CalendarWidget> {
-  DateTime currentDate = DateTime.now();
-  DateTime selectedDate = DateTime.now();
+
+   DateTime currentDate = DateTime(DateTime.now().year,DateTime.now().month,(DateTime.now().add(Duration(days: 2)).day));
+   DateTime selectedDate = DateTime(DateTime.now().year,DateTime.now().month,(DateTime.now().add(Duration(days: 2)).day));
 
   @override
   Widget build(BuildContext context) {
+    print("selectedDate selectedDate");
+    print(selectedDate);
     return Column(
       children: [
         _buildHeader(),
@@ -151,7 +154,8 @@ class _CalendarWidgetState extends State<CalendarWidget> {
     int weekdayOfFirstDay =
         DateTime(currentDate.year, currentDate.month, 1).weekday;
     int currentDay = 1;
-
+    print("selected date");
+    print(selectedDate);
     for (int i = 0; i < 6; i++) {
       List<Widget> week = [];
 
@@ -175,7 +179,9 @@ class _CalendarWidgetState extends State<CalendarWidget> {
 
         bool isEnabled =
             day.isAfter(DateTime.now().add(Duration(days: 1))) ;
-
+        print("selected date");
+        print(selectedDate);
+        print(day);
         Widget dayWidget = Expanded(
           child: GestureDetector(
             onTap: isEnabled
@@ -199,7 +205,7 @@ class _CalendarWidgetState extends State<CalendarWidget> {
                 Container(
                   height: 40,
                   decoration: BoxDecoration(
-                    color: selectedDate != null && selectedDate == day
+                    color:  selectedDate == day
                         ? kPrimaryColor
                         : Colors.transparent,
                     borderRadius: BorderRadius.circular(10),
